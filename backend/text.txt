@@ -1,2 +1,4 @@
-TEST UPDATE — DELETE AFTER TESTING
-TEST from maddy
+downloads for express app
+npm init -y
+npm i express dotenv helmet express-rate-limit mongoose express-validator jsonwebtoken uuid bcrypt cors
+npm i -D nodemon
