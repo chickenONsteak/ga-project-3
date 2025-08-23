@@ -7,12 +7,8 @@ const LocationsSchema = new mongoose.Schema(
     region: {
       type: String,
       enum: ["north", "south", "east", "west"],
-      default: null,
     },
     capacity: { type: Number, min: 1, default: null },
-    eventsList: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Events", index: true },
-    ],
   },
   { collection: "locations" }
 );

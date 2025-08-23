@@ -5,7 +5,8 @@ import { connectDB } from "./src/db/db.js";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import authRoutes from "./src/routers/auth.js"
+import authRouter from "./src/routers/auth.js"
+import petsRouter from "./src/routers/pets.js"
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000, //15min
@@ -44,7 +45,8 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRouter);
+app.use("/api/pets", petsRouter);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
