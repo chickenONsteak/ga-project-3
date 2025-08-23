@@ -80,6 +80,8 @@ export const locationRes = {
       address: "48 Lor Mambong",
       region: "South",
       size: 1700,
+      image:
+        "https://i.pinimg.com/1200x/b8/dd/67/b8dd67caaa3eb6b987e7b69fab7364eb.jpg",
     },
     {
       locationId: 2,
@@ -87,6 +89,26 @@ export const locationRes = {
       address: "7 Holland Vlg Wy",
       region: "South",
       size: 2000,
+      image:
+        "https://i.pinimg.com/1200x/b8/dd/67/b8dd67caaa3eb6b987e7b69fab7364eb.jpg",
+    },
+    {
+      locationId: 3,
+      name: "asdasdas",
+      address: "48 Lor Mambong",
+      region: "South",
+      size: 1700,
+      image:
+        "https://i.pinimg.com/1200x/b8/dd/67/b8dd67caaa3eb6b987e7b69fab7364eb.jpg",
+    },
+    {
+      locationId: 4,
+      name: "uhgfiuahsdfnsaf",
+      address: "7 Holland Vlg Wy",
+      region: "South",
+      size: 2000,
+      image:
+        "https://i.pinimg.com/1200x/b8/dd/67/b8dd67caaa3eb6b987e7b69fab7364eb.jpg",
     },
   ],
 };
