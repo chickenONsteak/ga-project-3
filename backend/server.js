@@ -5,6 +5,7 @@ import { connectDB } from "./src/db/db.js";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import authRoutes from "./src/routers/auth.js"
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000, //15min
@@ -42,6 +43,8 @@ app.use((err, req, res, next) => {
       .json({ status: 400, msg: "invalid form data format" });
   }
 });
+
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
