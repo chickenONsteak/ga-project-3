@@ -48,7 +48,7 @@ export const login = async (req, res) => {
     }
     const result = await bcrypt.compare(req.body.password, auth.hash);
     if (!result) {
-      console.log("username or password error");
+      console.error("username or password error");
       return res.status(401).json({ status: "error", msg: "Login failed" });
     }
     const claims = { username: auth.username, role: auth.role };
@@ -82,5 +82,38 @@ export const refresh = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(400).json({ status: "error", msg: "Refresh error" });
+  }
+};
+
+export const promoteByUsername = async (req, res) => {
+  try {
+    const raw = req.body?.username;
+    if (!raw) {
+      return res
+        .status(400)
+        .json({ status: "error", msg: "username required" });
+    }
+    const uname = raw.toLowerCase().trim();
+    const user = await AuthModel.findOne(
+      { username: uname },
+      { username: 1, role: 1 }
+    );
+    if (!user) {
+      return res.status(404).json({ status: "error", msg: "User not found" });
+    }
+
+    if (user.role === "admin") {
+      return res.json({ status: "ok", msg: "User is already admin", user });
+    }
+
+    user.role = "admin";
+    await user.save();
+
+    return res.json({ status: "ok", msg: "User promoted to admin", user });
+  } catch (e) {
+    console.error(e.message);
+    return res
+      .status(500)
+      .json({ status: "error", msg: "Error promoting user" });
   }
 };
