@@ -5,8 +5,8 @@ import { connectDB } from "./src/db/db.js";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import authRouter from "./src/routers/auth.js"
-import petsRouter from "./src/routers/pets.js"
+import authRouter from "./src/routers/auth.js";
+import petsRouter from "./src/routers/pets.js";
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000, //15min
@@ -28,12 +28,14 @@ app.use(express.urlencoded({ extended: false })); //use simple objects only
 
 //error handler for invalid body req format
 app.use((err, req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && "body" in err) { //broken JSON body
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    //broken JSON body
     console.error("JSON parsing error:", err.message);
     return res
       .status(400)
       .json({ status: "error", msg: "invalid JSON format" });
-  } else if ( //broken form data
+  } else if (
+    //broken form data
     err instanceof SyntaxError &&
     err.status === 400 &&
     err.type === "entity.parse.failed"
