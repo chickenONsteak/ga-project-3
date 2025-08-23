@@ -27,6 +27,7 @@ const EventsSchema = new mongoose.Schema(
     attendeesPets: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Pets", index: true },
     ],
+    status: { type: String, enum: ["scheduled","cancelled","completed"], default: "scheduled" },
   },
   { collection: "events" }
 );
