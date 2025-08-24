@@ -8,6 +8,7 @@ import rateLimit from "express-rate-limit";
 import authRouter from "./src/routers/auth.js";
 import petsRouter from "./src/routers/pets.js";
 import profileRouter from "./src/routers/profile.js";
+import eventsRouter from "./src/routers/events.js";
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000, //15min
@@ -51,6 +52,7 @@ app.use((err, req, res, next) => {
 app.use("/api/auth", authRouter);
 app.use("/api/pets", petsRouter);
 app.use("/api/profile", profileRouter);
+app.use("/api/events", eventsRouter);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
