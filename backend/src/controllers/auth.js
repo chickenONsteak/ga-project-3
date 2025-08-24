@@ -56,7 +56,7 @@ export const login = async (req, res) => {
     const claims = { id: auth._id, username: auth.username, role: auth.role };
 
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
-      expiresIn: "20m",
+      expiresIn: "20d", // changed to 20 days for convenience, change back to 20mins when done
       jwtid: uuidv4(),
     });
 

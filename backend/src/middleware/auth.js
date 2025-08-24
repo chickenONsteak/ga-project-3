@@ -10,7 +10,7 @@ export const auth = (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_SECRET); //verify sign with secret = correct claims
-    //   console.log("DECODED:", decoded);
+      //   console.log("DECODED:", decoded);
       req.decoded = decoded; //attach for downstream handler
       next();
     } catch (e) {

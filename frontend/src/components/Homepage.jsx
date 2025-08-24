@@ -10,9 +10,12 @@ const Homepage = () => {
     <div className="container">
       <Filter setFilter={setFilter} />
       <div>{filter}</div>
-      {locationRes.data.map((location, idx) => {
-        return <LocationCard key={location.locationId} idx={idx} />;
-      })}
+
+      <div className="row">
+        {locationRes.data.map((location, idx) => {
+          return <LocationCard key={location.locationId} idx={idx} />;
+        })}
+      </div>
     </div>
   );
 };
