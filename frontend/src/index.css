@@ -1,26 +1,3 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: "Oxygen", sans-serif;
-}
-
-body {
-  margin: 0;
-  background-color: whitesmoke;
-}
-
-.centered {
-  margin: 3rem auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .locationCards {
   display: flex;
   position: relative;
@@ -34,6 +11,7 @@ body {
   font-weight: 600;
 }
 
+/* FOR HOVER EFFECT — TO CREATE AN OVERLAY WITH EMPTY CONTENT ABOVE THE BUTTON WITH BACKGROUND IMAGE*/
 .locationCards::before {
   content: "";
   position: absolute;
@@ -45,11 +23,11 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
+/* FOR HOVER EFFECT — TO INCREASE OPACITY WHEN HOVERED*/
 .locationCards:hover::before {
   opacity: 0.8;
 }
-
+/* FOR HOVER EFFECT — TO ENSURE TEXTS IN THE DIV ARE LAYERED ABOVE EVERYTHING ELSE*/
 .locationCards div {
   position: relative;
   z-index: 1;
