@@ -5,9 +5,6 @@ import { connectDB } from "./src/db/db.js";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import authRouter from "./src/routers/auth.js"
-import petsRouter from "./src/routers/pets.js"
-import profileRouter from "./src/routers/profile.js"
 import authRouter from "./src/routers/auth.js";
 import petsRouter from "./src/routers/pets.js";
 import profileRouter from "./src/routers/profile.js";
