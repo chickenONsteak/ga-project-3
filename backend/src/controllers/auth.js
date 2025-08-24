@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import AuthModel from "../models/Auth.js";
+import ProfileModel from "../models/Profiles.js";
 
 export const register = async (req, res) => {
   try {
@@ -13,11 +14,12 @@ export const register = async (req, res) => {
         .json({ status: "error", msg: "Username already exist" });
     }
     const hash = await bcrypt.hash(req.body.password, 12);
-    await AuthModel.create({
+    const authDoc = await AuthModel.create({
       username: req.body.username,
       hash,
       role: "user", //when registering, not allowed to choose admin
     });
+    await ProfileModel.create({ authId: authDoc._id }); //auto create profile
     return res.status(201).json({ status: "ok", msg: "User registered" });
   } catch (e) {
     console.error(e.message);
@@ -51,7 +53,7 @@ export const login = async (req, res) => {
       console.error("username or password error");
       return res.status(401).json({ status: "error", msg: "Login failed" });
     }
-    const claims = { username: auth.username, role: auth.role };
+    const claims = { id: auth._id, username: auth.username, role: auth.role };
 
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "20m",
@@ -73,7 +75,7 @@ export const login = async (req, res) => {
 export const refresh = async (req, res) => {
   try {
     const decoded = jwt.verify(req.body.refresh, process.env.REFRESH_SECRET);
-    const claims = { username: decoded.username, role: decoded.role }; //grab decoded cause is faster ( no need to call API )
+    const claims = { id: decoded.id, username: decoded.username, role: decoded.role }; //grab decoded cause is faster ( no need to call API )
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "20m",
       jwtid: uuidv4(),
