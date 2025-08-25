@@ -13,7 +13,16 @@ const Homepage = () => {
 
       <div className="row">
         {locationRes.data.map((location, idx) => {
-          return <LocationCard key={location.locationId} idx={idx} />;
+          return (
+            <LocationCard
+              key={location.locationId}
+              name={location.name}
+              address={location.address}
+              region={location.address}
+              size={location.size}
+              image={location.image}
+            />
+          );
         })}
       </div>
     </div>

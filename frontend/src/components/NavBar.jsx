@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
-const NavBar = (props) => {
+const NavBar = () => {
   const navigate = useNavigate();
   const handleProfile = () => {
     // IF NOT LOGGED IN, SHOW LOGIN MODAL — ELSE NAVIGATE TO PROFILE PAGE

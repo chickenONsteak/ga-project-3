@@ -24,8 +24,6 @@ const LoginOverlay = (props) => {
     });
 
     if (res.ok) {
-      console.log(1);
-      console.log(res.data);
       userContext.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
       userContext.setRole(decoded.role);
