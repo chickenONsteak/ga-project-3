@@ -11,10 +11,12 @@ const NavBar = (props) => {
   return (
     <div className="container">
       <div className="row my-4">
-        <button className="col-md-2">brand logo img</button>
+        <button className="col-md-2" onClick={() => navigate("/home")}>
+          insert logo
+        </button>
         <div className="col-md-8"></div>
         <button className="col-md-2" onClick={handleProfile}>
-          profile
+          Login
         </button>
       </div>
     </div>

@@ -6,6 +6,7 @@ import EventsListingPage from "./components/EventsListingPage";
 import ProfilePage from "./components/ProfilePage";
 import UserContext from "./context/user";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LoginModal from "./components/LoginModal";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -18,6 +19,7 @@ function App() {
       <UserContext.Provider
         value={{ accessToken, setAccessToken, role, setRole }}
       >
+        {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
         <Routes>
           <Route path="/home" element={<Homepage />} />
           <Route path="/events/:location" element={<EventsListingPage />} />

@@ -10,10 +10,10 @@ const ProtectedRoute = (props) => {
     if (!isAuthenticated) {
       props.setShowLoginModal(true);
     }
-  }, [isAuthenticated, props.setShowLoginModal]);
+  }, [isAuthenticated, props.setShowLoginModal]); // so that the App renders the login modal only after this component has completed rendering
 
   if (!isAuthenticated) {
-    // IF NOT LOGGED IN, RETURN USER TO HOMEPAGE AND DISPLAY LOGIN MODAL
+    // IF NOT LOGGED IN, USER REMAINS AT SAME PAGE WITH LOGIN MODAL BEING DISPLAYED
     return <Navigate to="/home" replace />;
   }
 
