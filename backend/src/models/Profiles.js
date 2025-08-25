@@ -11,7 +11,7 @@ const ProfilesSchema = new mongoose.Schema(
     },
     age: { type: Number, min: 0, default: null },
     description: { type: String, default: "" },
-    // pets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pets", index: true }]
+    pets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pets", index: true }]
   },
   { collection: "profiles" }
 );
