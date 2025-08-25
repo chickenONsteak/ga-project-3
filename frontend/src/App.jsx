@@ -6,6 +6,7 @@ import EventsListingPage from "./components/EventsListingPage";
 import ProfilePage from "./components/ProfilePage";
 import UserContext from "./context/user";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LoginModal from "./components/LoginModal";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div className="container">
+      {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
       <NavBar />
       <UserContext.Provider
         value={{ accessToken, setAccessToken, role, setRole }}

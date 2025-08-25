@@ -7,7 +7,7 @@ const Modal = (props) => {
     <>
       {ReactDOM.createPortal(
         <div className={styles.backdrop}>
-          <div className={styles.modal}>{props.children}</div>
+          <div className={`container ${styles.modal}`}>{props.children}</div>
         </div>,
         document.querySelector("#modal-root")
       )}
