@@ -25,9 +25,9 @@ export const addLocation = async (req, res) => {
         .json({ status: "error", msg: "Only admins can create locations." });
     }
 
-    const { name, address, region, capacity = null } = req.body || {};
+    const { name, address, region, capacity, image = null } = req.body || {};
 
-    if (!name || !address) {
+    if (!name || !address || !image) {
       return res
         .status(400)
         .json({ status: "error", msg: "Missing required fields." });
@@ -55,6 +55,7 @@ export const addLocation = async (req, res) => {
       address: String(address).trim(),
       region: region || undefined, //no fill
       capacity: capacity || null, //show fill with no value
+      image: String(image).trim(),
     };
 
     const createdLocation = await LocationsModel.create(payload);
@@ -166,4 +167,3 @@ export const removeLocation = async (req, res) => {
     });
   }
 };
-

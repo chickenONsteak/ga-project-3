@@ -9,6 +9,7 @@ const LocationsSchema = new mongoose.Schema(
       enum: ["north", "south", "east", "west"],
     },
     capacity: { type: Number, min: 1, default: null },
+    image: { type: String, required: true },
   },
   { collection: "locations" }
 );
