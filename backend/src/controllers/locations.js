@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import AuthModel from "../models/Auth.js";
 import LocationsModel from "../models/Locations.js";
+import EventsModel from "../models/Events.js";
 
 export const addLocation = async (req, res) => {
   try {
@@ -121,7 +122,22 @@ export const getLocationById = async (req, res) => {
         .json({ status: "error", msg: "Location not found." });
     }
 
-    return res.json({ status: "ok", location });
+    // fetch events hosted at this location
+    const events = await EventsModel.find({ locationId })
+      .select("title startAt endAt hostUserId") // fetch only needed fields
+      .populate({ path: "hostUserId", select: "username" })
+      .lean();
+
+    const hostedEvents = events.map((e) => ({
+      //reshaping for wanted info only
+      _id: e._id,
+      title: e.title,
+      startAt: e.startAt,
+      endAt: e.endAt,
+      hostUsername: e.hostUserId?.username ?? "(deleted user)",
+    }));
+
+    return res.json({ status: "ok", location, hostedEvents });
   } catch (e) {
     console.error(e.message);
     return res
@@ -220,12 +236,10 @@ export const updateLocation = async (req, res) => {
     // console.log("locationId from body:", locationId);
 
     if (req.body?.locationId && req.body.locationId !== idFromParam) {
-      return res
-        .status(400)
-        .json({
-          status: "error",
-          msg: "locationId in URL and body do not match.",
-        });
+      return res.status(400).json({
+        status: "error",
+        msg: "locationId in URL and body do not match.",
+      });
     }
 
     const update = {};
