@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router";
@@ -38,7 +38,7 @@ const AddLocationOverlay = (props) => {
         address: newLocation.address,
         region: newLocation.region,
         capacity: newLocation.capacity,
-        imageURI: newLocation.imageURI,
+        image: newLocation.imageURI,
       },
       userContext.accessToken
     );
@@ -58,6 +58,24 @@ const AddLocationOverlay = (props) => {
       setIsError(true);
     }
   };
+
+  //   const getAllLocations = async () => {
+  //     setIsError(false);
+  //     setError(null);
+
+  //     const res = await fetchData("/api/locations/", "GET");
+
+  //     if (res.ok) {
+  //       props.setAllLocations(res.data);
+  //     } else {
+  //       setError(res.message);
+  //       setIsError(true);
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     getAllLocations();
+  //   }, [props.allLocations]);
 
   return (
     <div className={styles.backdrop}>

@@ -34,7 +34,11 @@ const NavBar = (props) => {
         />
 
         {showNewLocationModal && (
-          <AddLocationModal setShowNewLocationModal={setShowNewLocationModal} />
+          <AddLocationModal
+            setShowNewLocationModal={setShowNewLocationModal}
+            allLocations={props.allLocations}
+            setAllLocations={props.setAllLocations}
+          />
         )}
 
         {userContext.role === "admin" ? (

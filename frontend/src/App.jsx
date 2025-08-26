@@ -13,13 +13,18 @@ function App() {
   const [role, setRole] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [resetFilter, setResetFilter] = useState(false);
+  const [allLocations, setAllLocations] = useState([]);
 
   return (
     <div className="container">
       <UserContext.Provider
         value={{ accessToken, setAccessToken, role, setRole }}
       >
-        <NavBar setResetFilter={setResetFilter} />
+        <NavBar
+          setResetFilter={setResetFilter}
+          allLocations={allLocations}
+          setAllLocations={setAllLocations}
+        />
         {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
         <Routes>
           <Route
@@ -28,6 +33,8 @@ function App() {
               <Homepage
                 resetFilter={resetFilter}
                 setResetFilter={setResetFilter}
+                allLocations={allLocations}
+                setAllLocations={setAllLocations}
               />
             }
           />
