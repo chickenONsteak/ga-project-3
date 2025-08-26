@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 
 const LocationCard = (props) => {
   const navigate = useNavigate();
-  const [address, setAddress] = useState("");
 
   return (
     <button
