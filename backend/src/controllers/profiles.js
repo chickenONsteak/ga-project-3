@@ -39,6 +39,18 @@ export const updateMyProfile = async (req, res) => {
       update.description = String(req.body.description ?? "").trim(); //if undefined return ""
     }
 
+    const uploadedImage = //assuming using upload libraries
+      req.file?.secure_url || req.file?.location || req.file?.path || "";
+    const bodyImage =
+      typeof req.body?.image === "string" ? req.body.image.trim() : "";
+
+    const image = uploadedImage || bodyImage || ""; //if none available, return empty string (fill not required)
+
+    if (image) {
+      //if exist, update (not required fill)
+      update.image = image;
+    }
+
     //if kvp of update has nothing
     if (Object.keys(update).length === 0) {
       return res
@@ -67,17 +79,26 @@ export const getPublicProfile = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({ status: "error", msg: "Invalid user id" });
     }
+    // const profile = await Profiles.findOne({ authId: id }).lean(); //plain JS Object (faster)
+    // if (!profile) {
+    //   return res
+    //     .status(404)
+    //     .json({ status: "error", msg: "Profile not found." });
+    // }
 
-    const profile = await Profiles.findOne({ authId: id }).lean(); //plain JS Object (faster)
-    if (!profile) {
-      return res
-        .status(404)
-        .json({ status: "error", msg: "Profile not found." });
-    }
+    // const pets = await Pets.find({ ownerId: id })
+    //   .select("name breed age description image") //doesnt show other info
+    //   .lean();
 
-    const pets = await Pets.find({ ownerId: id })
-      .select("name breed age description") //doesnt show other info
-      .lean();
+    const [profile, pets] = await Promise.all([ //run parallel
+      Profiles.findOne({ authId: id })
+        .select("authId age description image") // only public fields
+        .lean(),
+      Pets.find({ ownerId: id })
+        .select("name breed age description image") // include pet image
+        .sort({ name: 1 })
+        .lean(),
+    ]);
 
     return res.json({ profile, pets });
   } catch (e) {
