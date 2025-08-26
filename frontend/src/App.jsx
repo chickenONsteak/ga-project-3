@@ -13,7 +13,6 @@ function App() {
   const [role, setRole] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [resetFilter, setResetFilter] = useState(false);
-  console.log(resetFilter);
 
   return (
     <div className="container">

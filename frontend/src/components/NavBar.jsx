@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../context/user";
 import logo from "../assets/logo.png";
-import { jwtDecode } from "jwt-decode";
 
 const NavBar = (props) => {
   const navigate = useNavigate();
@@ -13,7 +12,13 @@ const NavBar = (props) => {
   const handleClickLogo = () => {
     props.setResetFilter(true);
     navigate("/home");
-    console.log(1);
+  };
+
+  const handleLogout = () => {
+    // CLEAR accessToken AND role STATES
+    userContext.setAccessToken("");
+    userContext.setRole("");
+    navigate("/home");
   };
 
   return (
@@ -28,17 +33,42 @@ const NavBar = (props) => {
 
         {userContext.role === "admin" ? (
           <>
-            <div className="col-md-5"></div>
+            <div className="col-md-4"></div>
             <button className="col-md-2">Add location</button>
             <div className="col-md-1"></div>
           </>
         ) : (
-          <div className="col-md-8"></div>
+          <div className="col-md-7"></div>
         )}
 
-        <button className="col-md-2" onClick={() => navigate("/profile-page")}>
+        {isLoggedIn ? (
+          <>
+            <button className="col-md-1" onClick={() => handleLogout()}>
+              Logout
+            </button>
+            <div className="col-md-1"></div>
+            <button
+              className="col-md-1"
+              onClick={() => navigate("/profile-page")}
+            >
+              Profile
+            </button>
+          </>
+        ) : (
+          <>
+            <div className="col-md-2"></div>
+            <button
+              className="col-md-1"
+              onClick={() => navigate("/profile-page")}
+            >
+              Login
+            </button>
+          </>
+        )}
+
+        {/* <button className="col-md-1" onClick={() => navigate("/profile-page")}>
           {isLoggedIn ? "Profile" : "Login"}
-        </button>
+        </button> */}
       </div>
     </div>
   );
