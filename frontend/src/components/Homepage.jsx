@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Filter from "./Filter";
-import { locationRes } from "../dummyData/dummyResponse";
 import LocationCard from "./LocationCard";
 import useFetch from "../hooks/useFetch";
 
@@ -34,20 +33,24 @@ const Homepage = () => {
       <Filter setFilter={setFilter} />
       <div>{filter}</div>
 
-      <div className="row">
-        {locations.map((location) => {
-          return (
-            <LocationCard
-              key={location._id}
-              name={location.name}
-              address={location.address}
-              region={location.region}
-              capacity={location.capacity}
-              imageURI={location.image}
-            />
-          );
-        })}
-      </div>
+      {isError && error}
+      {!isError && (
+        <div className="row">
+          {locations.map((location) => {
+            return (
+              <LocationCard
+                key={location._id}
+                locationId={location._id}
+                name={location.name}
+                address={location.address}
+                region={location.region}
+                capacity={location.capacity}
+                imageURI={location.image}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
