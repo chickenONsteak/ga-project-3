@@ -12,6 +12,7 @@ const PetsSchema = new mongoose.Schema(
     breed: { type: String, default: "" },
     age: { type: Number, min: 0, default: null },
     description: { type: String, default: "" },
+    image: { type: String, default: "" },
   },
   { collection: "pets" }
 );
