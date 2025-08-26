@@ -1,6 +1,7 @@
 import Profiles from "../models/Profiles.js";
 import Pets from "../models/Pets.js";
 import mongoose from "mongoose";
+import EventsModel from "../models/Events.js";
 
 export const getMyProfile = async (req, res) => {
   // view own profile
@@ -12,7 +13,31 @@ export const getMyProfile = async (req, res) => {
   }
   const pets = await Pets.find({ ownerId: authId }).lean(); //fetch pet owned by me
 
-  res.json({ profile, pets });
+  const hostedEvents = await EventsModel.find({ hostUserId: authId }) //fetch events hosted by me
+    .select("title startAt endAt status locationId")
+    .populate({ path: "locationId", select: "name address region" }) //replace location id to readable contents
+    .sort({ startAt: 1 }) //ascending order
+    .lean();
+
+  const events = hostedEvents.map((e) => ({
+    //removing unncessary duplicated information
+    _id: e._id, // keep event id
+    title: e.title, // keep event title
+    startAt: e.startAt, // keep event start date
+    endAt: e.endAt, // keep event end date
+    status: e.status, // keep event status
+    location: e.locationId
+      ? {
+          // if the event has a populated location
+          _id: e.locationId._id,
+          name: e.locationId.name,
+          address: e.locationId.address,
+          region: e.locationId.region,
+        }
+      : null, // if no location (shouldn’t happen, but safe fallback)
+  }));
+
+  return res.json({ profile, pets, eventsHostedByMe: events });
 };
 
 export const updateMyProfile = async (req, res) => {
@@ -90,7 +115,8 @@ export const getPublicProfile = async (req, res) => {
     //   .select("name breed age description image") //doesnt show other info
     //   .lean();
 
-    const [profile, pets] = await Promise.all([ //run parallel
+    const [profile, pets] = await Promise.all([
+      //run parallel
       Profiles.findOne({ authId: id })
         .select("authId age description image") // only public fields
         .lean(),
