@@ -15,7 +15,7 @@ const AddLocationOverlay = (props) => {
     name: "",
     address: "",
     region: "",
-    capacity: 0,
+    capacity: "", //min 1, force validation check on submit
     imageURI: "",
   });
 
@@ -30,13 +30,25 @@ const AddLocationOverlay = (props) => {
   };
 
   const createNewLocation = async () => {
+    setIsError(false);
+    setError(null); //ensure state is as follows when retrieving
+
+    //react validation on frontend
+    if (!newLocation.name.trim()) return setError("Name required");
+    if (!newLocation.address.trim()) return setError("Address required");
+    if (!newLocation.region) return setError("Region required");
+    const cap = Number(newLocation.capacity);
+    if (!Number.isFinite(cap) || cap < 1)
+      return setError("Capacity must be >= 1"); //ensure 0 does not get sent to db
+    if (!newLocation.imageURI.trim()) return setError("Image URL required");
+
     const res = await fetchData(
-      "/api/locations/",
+      "/api/locations", //send to collection
       "PUT",
       {
         name: newLocation.name,
         address: newLocation.address,
-        region: newLocation.region,
+        region: newLocation.region, //enum inputs only
         capacity: newLocation.capacity,
         image: newLocation.imageURI,
       },
@@ -48,13 +60,13 @@ const AddLocationOverlay = (props) => {
         name: "",
         address: "",
         region: "",
-        capacity: 0,
+        capacity: "", //min 1, force validation check on submit
         imageURI: "",
       });
       props.setShowNewLocationModal(false);
-      navigate("/home");
+      navigate("/home"); 
     } else {
-      setError(res.message);
+      setError(res.message || "Failed to create location"); //allow message for other errors
       setIsError(true);
     }
   };
@@ -111,6 +123,10 @@ const AddLocationOverlay = (props) => {
             value={newLocation.region}
             onChange={(event) => handleChange(event)}
           >
+            <option value="" disabled>
+              — Select region —
+            </option>
+            {/* need this if not, default value does not send to db */}
             <option value="north">North</option>
             <option value="south">South</option>
             <option value="east">East</option>
