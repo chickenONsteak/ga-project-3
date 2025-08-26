@@ -48,7 +48,6 @@ const LoginOverlay = (props) => {
             placeholder="username"
             onChange={(event) => setUsername(event.target.value)}
           />
-          <div>{username}</div>
         </div>
         <div className="row">
           <input
@@ -57,7 +56,6 @@ const LoginOverlay = (props) => {
             placeholder="password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <div>{password}</div>
         </div>
         <div className="row">
           <button onClick={handleLogin}>Submit</button>

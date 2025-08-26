@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../context/user";
 import logo from "../assets/logo.png";
+import AddLocationModal from "./AddLocationModal";
 
 const NavBar = (props) => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const isLoggedIn = userContext.accessToken.length > 0;
+  const [showNewLocationModal, setShowNewLocationModal] = useState(false);
 
   // WHEN USER CLICKS LOGO, NAVIGATE TO HOMEPAGE AND RESET FILTER
   const handleClickLogo = () => {
@@ -31,10 +33,19 @@ const NavBar = (props) => {
           onClick={() => handleClickLogo()}
         />
 
+        {showNewLocationModal && (
+          <AddLocationModal setShowNewLocationModal={setShowNewLocationModal} />
+        )}
+
         {userContext.role === "admin" ? (
           <>
             <div className="col-md-4"></div>
-            <button className="col-md-2">Add location</button>
+            <button
+              className="col-md-2"
+              onClick={() => setShowNewLocationModal(true)}
+            >
+              Add location
+            </button>
             <div className="col-md-1"></div>
           </>
         ) : (
@@ -65,10 +76,6 @@ const NavBar = (props) => {
             </button>
           </>
         )}
-
-        {/* <button className="col-md-1" onClick={() => navigate("/profile-page")}>
-          {isLoggedIn ? "Profile" : "Login"}
-        </button> */}
       </div>
     </div>
   );
