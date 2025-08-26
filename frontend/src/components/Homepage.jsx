@@ -43,7 +43,7 @@ const Homepage = () => {
               address={location.address}
               region={location.region}
               capacity={location.capacity}
-              image={location.image}
+              imageURI={location.image}
             />
           );
         })}

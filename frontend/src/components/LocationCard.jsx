@@ -9,7 +9,7 @@ const LocationCard = (props) => {
     <button
       className="col-md-3 locationCards"
       style={{
-        backgroundImage: `url(${props.image})`,
+        backgroundImage: `url(${props.imageURI})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -19,6 +19,7 @@ const LocationCard = (props) => {
       <div>{props.address}</div>
       <div>{props.region}</div>
       <div>{props.capacity}</div>
+      <div>{props.imageURI}</div>
     </button>
   );
 };
