@@ -1,0 +1,1 @@
+// collates events from specific locationId (check if required)
