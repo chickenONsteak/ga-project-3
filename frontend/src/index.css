@@ -32,3 +32,8 @@
   position: relative;
   z-index: 1;
 }
+
+.brand-logo {
+  height: 8rem;
+  width: auto;
+}

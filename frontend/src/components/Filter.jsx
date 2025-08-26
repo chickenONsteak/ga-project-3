@@ -4,16 +4,16 @@ const Filter = (props) => {
   return (
     <div className="container">
       <div className="row my-2">
-        <button className="col-md-1" onClick={() => props.setFilter("North")}>
+        <button className="col-md-1" onClick={() => props.setFilter("north")}>
           North
         </button>
-        <button className="col-md-1" onClick={() => props.setFilter("South")}>
+        <button className="col-md-1" onClick={() => props.setFilter("south")}>
           South
         </button>
-        <button className="col-md-1" onClick={() => props.setFilter("East")}>
+        <button className="col-md-1" onClick={() => props.setFilter("east")}>
           East
         </button>
-        <button className="col-md-1" onClick={() => props.setFilter("West")}>
+        <button className="col-md-1" onClick={() => props.setFilter("west")}>
           West
         </button>
       </div>

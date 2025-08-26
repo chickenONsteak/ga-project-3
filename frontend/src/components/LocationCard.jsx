@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { locationRes } from "../dummyData/dummyResponse";
+import React from "react";
 import { useNavigate } from "react-router";
 
 const LocationCard = (props) => {
@@ -19,7 +18,6 @@ const LocationCard = (props) => {
       <div>{props.address}</div>
       <div>{props.region}</div>
       <div>{props.capacity}</div>
-      <div>{props.imageURI}</div>
     </button>
   );
 };

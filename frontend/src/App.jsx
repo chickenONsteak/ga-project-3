@@ -12,16 +12,26 @@ function App() {
   const [accessToken, setAccessToken] = useState("");
   const [role, setRole] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [resetFilter, setResetFilter] = useState(false);
+  console.log(resetFilter);
 
   return (
     <div className="container">
       <UserContext.Provider
         value={{ accessToken, setAccessToken, role, setRole }}
       >
-        <NavBar />
+        <NavBar setResetFilter={setResetFilter} />
         {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
         <Routes>
-          <Route path="/home" element={<Homepage />} />
+          <Route
+            path="/home"
+            element={
+              <Homepage
+                resetFilter={resetFilter}
+                setResetFilter={setResetFilter}
+              />
+            }
+          />
           <Route path="/events/:locationId" element={<EventsListingPage />} />
           <Route
             path="/profile-page"
