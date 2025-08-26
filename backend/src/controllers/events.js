@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import EventsModel from "../models/Events.js";
 import AuthModel from "../models/Auth.js";
 import PetsModel from "../models/Pets.js";
+import LocationsModel from "../models/Locations.js";
 
 export const addEvent = async (req, res) => {
   try {
@@ -33,21 +34,20 @@ export const addEvent = async (req, res) => {
         .json({ status: "error", msg: "Missing required fields." });
     }
 
-    //ensure location exists (require to change after creating location)
     const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
-    if (!isValidId(locationId)) {
+    if (!mongoose.Types.ObjectId.isValid(locationId)) {
+      //ensure location is valid format
       return res
         .status(400)
         .json({ status: "error", msg: "Invalid locationId." });
     }
 
-    // Ensure location exists
-    // const locationExists = await LocationsModel.findById(locationId).select("_id");
-    // if (!locationExists) {
-    //   return res
-    //     .status(404)
-    //     .json({ status: "error", msg: "Location not found." });
-    // }
+    const locationExists = await LocationsModel.exists({ _id: locationId }); //ensure location esists in db
+    if (!locationExists) {
+      return res
+        .status(404)
+        .json({ status: "error", msg: "Location not found." });
+    }
 
     //converts HTML date into Date object ("2025-09-01T14:00" - no seconds here)
     const start = new Date(startAt);
@@ -221,9 +221,14 @@ export const removePetFromEvent = async (req, res) => {
       return res.status(401).json({ status: "error", msg: "Unauthorized" });
     }
 
-    const user = await AuthModel.findOne({ username }).select("_id");
-    if (!user) {
-      //search current user
+    // const user = await AuthModel.findOne({ username }).select("_id");
+    // if (!user) {
+    //   //search current user
+    //   return res.status(401).json({ status: "error", msg: "Unauthorized" });
+    // }
+
+    const authUser = await AuthModel.findOne({ username }).select("_id"); //requestor
+    if (!authUser) {
       return res.status(401).json({ status: "error", msg: "Unauthorized" });
     }
 
@@ -231,6 +236,15 @@ export const removePetFromEvent = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(eventId)) {
       return res.status(400).json({ status: "error", msg: "Invalid eventId." });
     }
+
+    const event = await EventsModel.findById(eventId).select(
+      "_id hostUserId attendeesPets"
+    ); //get event and check host & pets
+    if (!event) {
+      return res.status(404).json({ status: "error", msg: "Event not found." });
+    }
+
+    const isHost = String(event.hostUserId) === String(authUser._id); //if loggedin user is host
 
     const { petIds = [] } = req.body || {};
     const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
@@ -245,36 +259,56 @@ export const removePetFromEvent = async (req, res) => {
       });
     }
 
-    // make sure pets belongs to this user
-    const ownedPets = await PetsModel.find({
-      _id: { $in: cleanedPetIds },
-      ownerId: user._id, 
-    }).select("_id");
-
-    const ownedPetIds = ownedPets.map((p) => p._id);
-
-    if (ownedPetIds.length === 0) {
-      return res.status(400).json({
+    // ensure the selected pets are in this event
+    const petIdsInEvent = new Set(
+      (event.attendeesPets || []).map((id) => String(id))
+    );
+    const idsThatAreInEvent = cleanedPetIds.filter((id) =>
+      petIdsInEvent.has(String(id))
+    );
+    if (idsThatAreInEvent.length === 0) {
+      return res.status(404).json({
         status: "error",
-        msg: "None of these pets belong to you.",
+        msg: "None of the provided petIds are in this event.",
       });
     }
 
+    let petIdsToRemove = [];
+
+    if (isHost) {
+      //allow host to also remove pets
+      petIdsToRemove = idsThatAreInEvent;
+    } else {
+      // if not host, make sure pets belongs to this user
+      const ownedPets = await PetsModel.find({
+        _id: { $in: idsThatAreInEvent },
+        ownerId: authUser._id,
+      }).select("_id");
+      petIdsToRemove = ownedPets.map((p) => String(p._id));
+
+      if (petIdsToRemove.length === 0) {
+        return res.status(403).json({
+          status: "error",
+          msg: "You can only remove pets that you own.",
+        });
+      }
+    }
+
+    // remove selected pets from the event
+    const objIdsToRemove = petIdsToRemove.map(
+      (id) => new mongoose.Types.ObjectId(id)
+    );
     const updatedEvent = await EventsModel.findByIdAndUpdate(
       eventId,
-      { $pull: { attendeesPets: { $in: ownedPetIds } } }, //to remove selected petid
-      { new: true } //return updated
+      { $pull: { attendeesPets: { $in: objIdsToRemove } } },
+      { new: true }
     )
       .populate("attendeesUsers", "username")
       .populate("attendeesPets", "name");
 
-    if (!updatedEvent) {
-      return res.status(404).json({ status: "error", msg: "Event not found." });
-    }
-
     return res.json({
       status: "ok",
-      msg: "Selected pets removed from event.",
+      msg: `${petIdsToRemove.length} pet(s) removed from event.`,
       updatedEvent,
     });
   } catch (e) {
@@ -325,15 +359,19 @@ export const updateEvent = async (req, res) => {
     if (description !== undefined) update.description = String(description);
 
     if (locationId !== undefined) {
-      //to update once location is completed
-      if (!isValidId(locationId)) {
-        //only checks mongo format
+      if (!isValidId(locationId)) { //ensure format is valid
         return res
           .status(400)
           .json({ status: "error", msg: "Invalid locationId." });
-        // const loc = await LocationsModel.findById(locationId).select("_id");
-        // if (!loc) return res.status(404).json({ status: "error", msg: "Location not found." });
       }
+
+      const locExists = await LocationsModel.exists({ _id: locationId }); //ensure locationId exists in db
+      if (!locExists) {
+        return res
+          .status(404)
+          .json({ status: "error", msg: "Location not found." });
+      }
+
       update.locationId = locationId;
     }
 
@@ -440,6 +478,10 @@ export const deleteEventById = async (req, res) => {
     if (!username)
       return res.status(401).json({ status: "error", msg: "Unauthorised" });
 
+    const authUser = await AuthModel.findOne({ username }).select("_id role"); //find loggedin role
+    if (!authUser)
+      return res.status(401).json({ status: "error", msg: "Unauthorised" });
+
     const host = await AuthModel.findOne({ username }).select("_id"); //find host id
     if (!host)
       return res.status(401).json({ status: "error", msg: "Unauthorised" });
@@ -450,16 +492,25 @@ export const deleteEventById = async (req, res) => {
       return res.status(400).json({ status: "error", msg: "Invalid event id" });
     }
 
-    const deleted = await EventsModel.findOneAndDelete({
-      _id: eventId,
-      hostUserId: host._id,
-    });
+    let deleted;
+
+    if (authUser.role === "admin") {
+      // admin can delete any event
+      deleted = await EventsModel.findByIdAndDelete(eventId);
+    } else {
+      // host can only delete their own event
+      deleted = await EventsModel.findOneAndDelete({
+        //other users not allowed to delete event if not host or admin
+        _id: eventId,
+        hostUserId: authUser._id,
+      });
+    }
 
     if (!deleted) {
       //only host can delete event
       return res.status(404).json({
         status: "error",
-        msg: "Event not found or you are not the host.",
+        msg: "Event not found or you are not authorised.",
       });
     }
 
