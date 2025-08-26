@@ -15,14 +15,14 @@ function App() {
 
   return (
     <div className="container">
-      <NavBar />
       <UserContext.Provider
         value={{ accessToken, setAccessToken, role, setRole }}
       >
+        <NavBar />
         {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
         <Routes>
           <Route path="/home" element={<Homepage />} />
-          <Route path="/events/:location" element={<EventsListingPage />} />
+          <Route path="/events/:locationId" element={<EventsListingPage />} />
           <Route
             path="/profile-page"
             element={

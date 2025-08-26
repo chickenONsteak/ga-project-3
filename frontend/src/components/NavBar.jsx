@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import UserContext from "../context/user";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const handleProfile = () => {
-    // IF NOT LOGGED IN, SHOW LOGIN MODAL — ELSE NAVIGATE TO PROFILE PAGE
-    navigate("/profile-page");
-  };
+  const userContext = useContext(UserContext);
+  const isLoggedIn = userContext.accessToken.length > 0;
 
   return (
     <div className="container">
@@ -15,8 +14,8 @@ const NavBar = () => {
           insert logo
         </button>
         <div className="col-md-8"></div>
-        <button className="col-md-2" onClick={handleProfile}>
-          Login
+        <button className="col-md-2" onClick={() => navigate("/profile-page")}>
+          {isLoggedIn ? "Profile" : "Login"}
         </button>
       </div>
     </div>

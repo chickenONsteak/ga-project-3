@@ -2,11 +2,11 @@ import React from "react";
 import { useParams } from "react-router";
 
 const EventsListingPage = () => {
-  let address = useParams();
+  const locationId = useParams();
 
   return (
     <div className="container">
-      <div className="row">{JSON.stringify(address)}</div>
+      <div className="row">{JSON.stringify(locationId)}</div>
     </div>
   );
 };
