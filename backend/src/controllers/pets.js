@@ -18,12 +18,20 @@ export const addPet = async (req, res) => {
     if (!name)
       return res.status(400).json({ status: "error", msg: "name required" });
 
+    const uploadedImage = //assuming using upload libraries
+      req.file?.secure_url || req.file?.location || req.file?.path || "";
+    const bodyImage =
+      typeof req.body?.image === "string" ? req.body.image.trim() : "";
+
+    const image = uploadedImage || bodyImage || ""; //if none available, return empty string (fill not required)
+
     const pet = await PetsModel.create({
       ownerId: owner._id,
       name,
       breed,
       age,
       description,
+      image,
     });
     return res.status(201).json({ status: "ok", pet });
   } catch (e) {
@@ -74,11 +82,12 @@ export const updateOnePet = async (req, res) => {
     if (!pet)
       return res.status(404).json({ status: "error", msg: "Pet not found" });
 
-    const { name, breed, age, description } = req.body; //allow empty fills as valid to update
+    const { name, breed, age, description, image } = req.body; //allow empty fills as valid to update
     if (name !== undefined) pet.name = name;
     if (breed !== undefined) pet.breed = breed;
     if (age !== undefined) pet.age = age;
     if (description !== undefined) pet.description = description;
+    if (image !== undefined) pet.image = image;
 
     await pet.save();
     return res.json({ status: "ok", msg: "Updated pet successfully" });

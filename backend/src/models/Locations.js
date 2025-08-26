@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const LocationsSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, trim: true }, // e.g., "Bishan Dog Run"
+    name: { type: String, required: true, trim: true },
     address: { type: String, required: true },
     region: {
       type: String,

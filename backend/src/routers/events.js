@@ -18,7 +18,7 @@ router.use(auth);
 
 router.post("/", addEvent);
 router.put("/:eventId", joinEvent);
-router.patch("/:eventId", updateEvent); //to add host removing attendees?
+router.patch("/:eventId", updateEvent);
 router.post("/:eventId", leaveEvent);
 router.delete("/:eventId", deleteEventById);
 router.delete("/:eventId/removePet", removePetFromEvent);

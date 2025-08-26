@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import AuthModel from "../models/Auth.js";
 import LocationsModel from "../models/Locations.js";
+import EventsModel from "../models/Events.js";
 
 export const addLocation = async (req, res) => {
   try {
@@ -25,7 +26,7 @@ export const addLocation = async (req, res) => {
         .json({ status: "error", msg: "Only admins can create locations." });
     }
 
-    const { name, address, region, capacity, image = null } = req.body || {};
+    const { name, address, region, capacity = null, image } = req.body || {};
 
     if (!name || !address || !image) {
       return res
@@ -48,6 +49,17 @@ export const addLocation = async (req, res) => {
       return res
         .status(400)
         .json({ status: "error", msg: "Capacity must be a positive number." });
+    }
+
+    const isUrl =
+      typeof image === "string" &&
+      (image.startsWith("http://") || image.startsWith("https://")); //checks url format for image
+
+    if (!isUrl) {
+      return res.status(400).json({
+        status: "error",
+        msg: "Image must be a valid URL (http/https).",
+      });
     }
 
     const payload = {
@@ -110,7 +122,22 @@ export const getLocationById = async (req, res) => {
         .json({ status: "error", msg: "Location not found." });
     }
 
-    return res.json({ status: "ok", location });
+    // fetch events hosted at this location
+    const events = await EventsModel.find({ locationId })
+      .select("title startAt endAt hostUserId") // fetch only needed fields
+      .populate({ path: "hostUserId", select: "username" })
+      .lean();
+
+    const hostedEvents = events.map((e) => ({
+      //reshaping for wanted info only
+      _id: e._id,
+      title: e.title,
+      startAt: e.startAt,
+      endAt: e.endAt,
+      hostUsername: e.hostUserId?.username ?? "(deleted user)",
+    }));
+
+    return res.json({ status: "ok", location, hostedEvents });
   } catch (e) {
     console.error(e.message);
     return res
@@ -168,5 +195,113 @@ export const removeLocation = async (req, res) => {
       status: "error",
       msg: "Failed to delete location",
     });
+  }
+};
+
+export const updateLocation = async (req, res) => {
+  try {
+    // get logged in username
+    const username = (req.user?.username || req.decoded?.username || "")
+      .toLowerCase()
+      .trim();
+    if (!username) {
+      return res.status(401).json({ status: "error", msg: "Unauthorised" });
+    }
+
+    // check user exists
+    const user = await AuthModel.findOne({ username }).select("role _id");
+    if (!user) {
+      return res.status(401).json({ status: "error", msg: "Unauthorised" });
+    }
+
+    // ensure admin only access
+    if (user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ status: "error", msg: "Only admins can create locations." });
+    }
+
+    // extract inputs
+    const { locationId, name, address, region, capacity, image } =
+      req.body || {};
+
+    // need locationId
+    const idFromParam = req.params.locationId;
+    const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId(idFromParam)) {
+      return res
+        .status(400)
+        .json({ status: "error", msg: "Invalid locationId." });
+    }
+    // console.log("locationId from body:", locationId);
+
+    if (req.body?.locationId && req.body.locationId !== idFromParam) {
+      return res.status(400).json({
+        status: "error",
+        msg: "locationId in URL and body do not match.",
+      });
+    }
+
+    const update = {};
+    if (name !== undefined) update.name = String(name).trim();
+    if (address !== undefined) update.address = String(address).trim();
+
+    if (region !== undefined) {
+      const allowedRegions = ["north", "south", "east", "west"];
+      if (!allowedRegions.includes(region)) {
+        return res
+          .status(400)
+          .json({ status: "error", msg: "Invalid region." });
+      }
+      update.region = region;
+    }
+
+    if (capacity !== undefined) {
+      if (capacity !== null && (isNaN(capacity) || Number(capacity) < 1)) {
+        return res.status(400).json({
+          status: "error",
+          msg: "Capacity must be a positive number or null.",
+        });
+      }
+      update.capacity = capacity ?? null;
+    }
+
+    if (image !== undefined) {
+      const isUrl =
+        typeof image === "string" &&
+        (image.startsWith("http://") || image.startsWith("https://"));
+      if (!isUrl) {
+        return res
+          .status(400)
+          .json({ status: "error", msg: "Image must be a valid URL." });
+      }
+      update.image = image.trim();
+    }
+
+    if (Object.keys(update).length === 0) {
+      //nothing in body
+      return res
+        .status(400)
+        .json({ status: "error", msg: "No fields provided to update." });
+    }
+
+    const updatedLocation = await LocationsModel.findByIdAndUpdate(
+      locationId,
+      { $set: update },
+      { new: true } // return updated doc
+    );
+
+    if (!updatedLocation) {
+      return res
+        .status(404)
+        .json({ status: "error", msg: "Location not found." });
+    }
+
+    return res.status(200).json({ status: "ok", updatedLocation });
+  } catch (e) {
+    console.error(e.message);
+    return res
+      .status(400)
+      .json({ status: "error", msg: "Error updating location" });
   }
 };
