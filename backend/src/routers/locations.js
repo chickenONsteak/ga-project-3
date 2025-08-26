@@ -16,6 +16,6 @@ router.get("/:locationId", getLocationById);
 router.use(auth);
 
 router.put("/", authAdmin, addLocation);
-router.delete("/:locationId", authAdmin, removeLocation)
+router.delete("/:locationId", authAdmin, removeLocation);
 
 export default router;
