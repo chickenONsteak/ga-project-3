@@ -3,6 +3,7 @@ import {
   addLocation,
   getLocationById,
   removeLocation,
+  updateLocation,
   viewAllLocations,
 } from "../controllers/locations.js";
 import { auth, authAdmin } from "../middleware/auth.js";
@@ -17,5 +18,6 @@ router.use(auth);
 
 router.put("/", authAdmin, addLocation);
 router.delete("/:locationId", authAdmin, removeLocation);
+router.patch("/:locationId", authAdmin, updateLocation)
 
 export default router;
