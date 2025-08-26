@@ -15,7 +15,7 @@ import checkError from "../validators/checkErrors.js";
 
 const router = express.Router();
 
-router.get("/", authAdmin, getAllUsers);
+router.get("/", authAdmin, getAllUsers); 
 router.put("/register", validateRegistrationData, checkError, register);
 router.post("/login", validateLoginData, checkError, login);
 router.post("/refresh", refresh);
