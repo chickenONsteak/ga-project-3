@@ -18,7 +18,7 @@ const LocationCard = (props) => {
       <div>{props.name}</div>
       <div>{props.address}</div>
       <div>{props.region}</div>
-      <div>{props.size}</div>
+      <div>{props.capacity}</div>
     </button>
   );
 };
