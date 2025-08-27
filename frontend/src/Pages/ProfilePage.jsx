@@ -100,6 +100,7 @@ const ProfilePage = () => {
           userDetails={userDetails}
           setUserDetails={setUserDetails}
           setShowUpdateProfileModal={setShowUpdateProfileModal}
+          setForceRender={setForceRender}
         />
       )}
 
@@ -115,7 +116,12 @@ const ProfilePage = () => {
                   description={userDetails.description}
                 />
               </div>
-              <button className="col-md-1">Edit</button>
+              <button
+                className="col-md-1"
+                onClick={() => setShowUpdateProfileModal(true)}
+              >
+                Edit
+              </button>
             </div>
 
             <div className="col-md-1"></div>

@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../../styles/Modal.module.css";
 import ReactDOM from "react-dom";
 import useFetch from "../../hooks/useFetch";
+import UserContext from "../../context/user";
 
 const UpdateProfileOverlay = (props) => {
+  const userContext = useContext(UserContext);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(null);
   const fetchData = useFetch();
-  const [age, setAge] = useState(0);
-  const [description, setDescription] = useState("");
+  const [age, setAge] = useState(props.userDetails?.age || "");
+  const [description, setDescription] = useState(
+    props.userDetails?.description || ""
+  );
 
   const updateOwnProfile = async () => {
     setIsError(false);
     setError(null);
 
-    const res = await fetchData("/api/profile/me", "PATCH", {
-      age: age || "",
-      description: description || "",
-    });
+    const res = await fetchData(
+      "/api/profile/me",
+      "PATCH",
+      {
+        age: age || "",
+        description: description || "",
+      },
+      userContext.accessToken
+    );
 
     if (res.ok) {
       props.setShowUpdateProfileModal(false);
+      props.setForceRender(true);
     } else {
       setError(res.message);
       setIsError(true);
     }
   };
-
-  useEffect(() => {
-    setAge(props.userDetails.age);
-    setDescription(props.userDetails.description);
-  }, []);
 
   return (
     <div className={styles.backdrop}>
@@ -70,7 +75,7 @@ const UpdateProfileOverlay = (props) => {
           <div className="col-md-1"></div>
           <button
             className="col-md-2"
-            onClick={props.setShowUpdateProfileModal(false)}
+            onClick={() => props.setShowUpdateProfileModal(false)}
           >
             Close
           </button>
@@ -87,7 +92,10 @@ const UpdateProfileModal = (props) => {
         <UpdateProfileOverlay
           userDetails={props.userDetails}
           setUserDetails={props.setUserDetails}
-        />
+          setShowUpdateProfileModal={props.setShowUpdateProfileModal}
+          setForceRender={props.setForceRender}
+        />,
+        document.querySelector("#modal-root-updateProfile")
       )}
     </>
   );
