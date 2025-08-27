@@ -4,7 +4,7 @@ import EventCard from "./EventCard";
 import useFetch from "../../hooks/useFetch";
 import styles from "../../styles/EventList.module.css";
 
-const EventList = () => {
+const EventList = (refreshFromParent = 0) => { //prop from LocationsPage
   const { locationId } = useParams();
   const fetchData = useFetch();
   const [events, setEvents] = useState([]);
@@ -42,7 +42,7 @@ const EventList = () => {
       }
     };
     loadEvents();
-  }, [locationId, listRefresh]); // refetch when child sends
+  }, [locationId, listRefresh, refreshFromParent]); // refetch when child sends & refresh when created event
 
   if (loading) return <div>Loading events…</div>;
   if (error) return <div>{error}</div>;

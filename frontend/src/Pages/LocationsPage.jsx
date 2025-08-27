@@ -13,6 +13,7 @@ const LocationsPage = () => {
   const [location, setLocation] = useState(null);
   const [events, setEvents] = useState([]);
   const [error, setError] = useState("");
+  const [refreshCount, setRefreshCount] = useState(0);
 
   useEffect(() => {
     const load = async () => {
@@ -54,8 +55,10 @@ const LocationsPage = () => {
     load();
   }, [locationId]);
 
-   const handleEventCreated = (created) => {
-    setEvents((prev) => [created, ...prev]); }
+const handleEventCreated = (newEvent) => {
+  setEvents((current) => [newEvent, ...current]);
+  setRefreshCount((n) => n + 1);
+};
 
   if (loading) return <div>Loading page ...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -84,7 +87,7 @@ const LocationsPage = () => {
           />
           )}
           {/* button only available to logged in users */}
-        <EventList events={events} />
+        <EventList refreshFromParent={refreshCount}/>
       </div>
     </div>
   );
