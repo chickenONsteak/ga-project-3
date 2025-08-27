@@ -16,7 +16,7 @@ const useFetch = () => {
       if (!res.ok) {
         if (Array.isArray(data.msg)) {
           const errorMessages = data.msg.map((item, idx) => {
-            return <p key={idx}>{item.msg}</p>; //this one okay to use <p>?
+            return <p key={idx}>{item.msg}</p>;
           });
           return { ok: false, message: errorMessages };
         } else {

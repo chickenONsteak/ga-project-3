@@ -12,7 +12,7 @@ const LocationCard = (props) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      onClick={() => navigate(`/events/${props.locationId}`)}
+      onClick={() => navigate(`/locations/${props.locationId}`)}
     >
       <div>{props.name}</div>
       <div>{props.address}</div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NavBar from "./components/NavBar";
 import { Navigate, Route, Routes } from "react-router";
 import Homepage from "./Pages/Homepage";
-import EventsListingPage from "./Pages/EventsListingPage";
+import LocationsPage from "./Pages/LocationsPage";
 import ProfilePage from "./Pages/ProfilePage";
 import UserContext from "./context/user";
 import ProtectedRoute from "./Routes/ProtectedRoute";
@@ -38,7 +38,7 @@ function App() {
               />
             }
           />
-          <Route path="/events/:locationId" element={<EventsListingPage />} />
+          <Route path="/locations/:locationId" element={<LocationsPage />} />
           <Route
             path="/profile-page"
             element={
