@@ -124,7 +124,7 @@ export const getLocationById = async (req, res) => {
 
     // fetch events hosted at this location
     const events = await EventsModel.find({ locationId })
-      .select("title startAt endAt hostUserId") // fetch only needed fields
+      .select("title description startAt endAt hostUserId") // fetch only needed fields
       .populate({ path: "hostUserId", select: "username" })
       .lean();
 
@@ -132,6 +132,7 @@ export const getLocationById = async (req, res) => {
       //reshaping for wanted info only
       _id: e._id,
       title: e.title,
+      description: e.description,
       startAt: e.startAt,
       endAt: e.endAt,
       hostUsername: e.hostUserId?.username ?? "(deleted user)",
