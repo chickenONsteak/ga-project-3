@@ -1,4 +1,4 @@
-// opens <Modal><EventForm/></Modal> maybeimport React, { useState } from "react";
+import React, { useState } from "react";
 import EventForm from "./EventForm";
 import styles from "../../styles/CreateEventButton.module.css";
 

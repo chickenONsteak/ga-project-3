@@ -1,4 +1,4 @@
-// create/edit event// create/edit event
+// create/edit event
 import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import styles from "../../styles/EventForm.module.css";
