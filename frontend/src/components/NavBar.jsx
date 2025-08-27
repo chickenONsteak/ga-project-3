@@ -14,6 +14,7 @@ const NavBar = (props) => {
     userContext.setAccessToken("");
     localStorage.removeItem("access_token");
     userContext.setRole("");
+    localStorage.removeItem("role");
     navigate("/home");
   };
 

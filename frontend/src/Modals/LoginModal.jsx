@@ -30,6 +30,7 @@ const LoginOverlay = (props) => {
       localStorage.setItem("access_token", res.data.access);
       const decoded = jwtDecode(res.data.access);
       userContext.setRole(decoded.role);
+      localStorage.setItem("role", decoded.role);
       props.setShowLoginModal(false);
     } else {
       setError(res.message);
