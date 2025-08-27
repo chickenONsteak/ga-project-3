@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../context/user";
-import logo from "../assets/logo.png";
+import logo from "../assets/kopi&paws.png";
 import AddLocationModal from "../Modals/AddLocationModal";
+import styles from "../styles/NavBar.module.css";
 
 const NavBar = (props) => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const NavBar = (props) => {
           <>
             <div className="col-md-4"></div>
             <button
-              className="col-md-2"
+              className={`col-md-2 ${styles.navbarButtons}`}
               onClick={() => props.setShowNewLocationModal(true)}
             >
               Add location
@@ -53,10 +54,13 @@ const NavBar = (props) => {
 
         {isLoggedIn ? (
           <>
-            <button className="col-md-1" onClick={() => handleLogout()}>
+            <button
+              className={`col-md-1 ${styles.navbarButtons}`}
+              onClick={() => handleLogout()}
+            >
               Logout
             </button>
-            <div className="col-md-1"></div>
+            <div className={`col-md-2 ${styles.navbarButtons}`}></div>
             <button
               className="col-md-1"
               onClick={() => navigate("/profile-page")}
@@ -68,7 +72,7 @@ const NavBar = (props) => {
           <>
             <div className="col-md-2"></div>
             <button
-              className="col-md-1"
+              className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => navigate("/profile-page")}
             >
               Login

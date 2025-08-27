@@ -46,26 +46,36 @@ const LoginOverlay = (props) => {
           {!isError && "\u00a0"}
         </div>
         <div className="row">
+          <div className="col-md-3">Username :</div>
           <input
             className="col-md-3"
             type="text"
-            placeholder="username"
+            placeholder="required"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
         </div>
         <div className="row">
+          <div className="col-md-3">Password :</div>
           <input
             className="col-md-3"
             type="text"
-            placeholder="password"
+            placeholder="required"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <div className="row">
-          <button onClick={handleLogin}>Submit</button>
-          <button onClick={() => props.setShowLoginModal(false)}>Close</button>
+          <button className="col-md-2" onClick={handleLogin}>
+            Submit
+          </button>
+          <div className="col-md-1"></div>
+          <button
+            className="col-md-2"
+            onClick={() => props.setShowLoginModal(false)}
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>

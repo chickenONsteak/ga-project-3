@@ -6,6 +6,8 @@ import UserDetails from "../components/ProfilePage/UserDetails";
 import PetsDetails from "../components/ProfilePage/PetsDetails";
 import AddPetModal from "../components/ProfilePage/AddPetModal";
 import UpdatePetModal from "../components/ProfilePage/UpdatePetModal";
+import HostingEvents from "../components/ProfilePage/HostingEvents";
+import LocationCard from "../components/LocationCard";
 
 const ProfilePage = () => {
   const [isError, setIsError] = useState(false);
@@ -15,6 +17,7 @@ const ProfilePage = () => {
   const [username, setUsername] = useState("");
   const [userDetails, setUserDetails] = useState([]);
   const [petDetails, setPetDetails] = useState([]);
+  const [hostingEvents, setHostingEvents] = useState([]);
   const [showAddPetModal, setShowAddPetModal] = useState(false);
   const [showUpdatePetModal, setShowUpdatePetModal] = useState(false);
   const [selectedPetDetails, setSelectedPetDetails] = useState([]);
@@ -39,6 +42,8 @@ const ProfilePage = () => {
       setUserDetails(res.data.profile);
       // TO GET DETAILS OF PETS OWNED
       setPetDetails(res.data.pets);
+      // TO GET EVENTS THAT THE USER IS HOSTING
+      setHostingEvents(res.data.eventsHostedByMe);
     } else {
       setError(res.message);
       setIsError(true);
@@ -101,12 +106,28 @@ const ProfilePage = () => {
                   description={userDetails.description}
                 />
               </div>
+              <button className="col-md-1">Edit</button>
             </div>
 
             <div className="col-md-1"></div>
 
             <div className="col-md-3">
               <h2>Hosting</h2>
+              {/* <div>{JSON.stringify(hostingEvents)}</div> */}
+              <div className="row my-1"></div>
+              {hostingEvents.map((event) => {
+                return (
+                  <div key={event._id}>
+                    {/* <HostingEvents event={event} /> */}
+                    <LocationCard
+                      name={event.title}
+                      address={event.location.name}
+                      region={event.startAt}
+                      capacity={event.endAt}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
 

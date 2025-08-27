@@ -1,0 +1,34 @@
+.locationCards {
+  display: flex;
+  position: relative;
+  height: 20rem;
+  border: 2px solid black;
+  margin: 2rem 1.5rem;
+  color: white;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  font-weight: 600;
+}
+
+/* FOR HOVER EFFECT — TO CREATE AN OVERLAY WITH EMPTY CONTENT ABOVE THE BUTTON WITH BACKGROUND IMAGE*/
+.locationCards::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, black 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/* FOR HOVER EFFECT — TO INCREASE OPACITY WHEN HOVERED*/
+.locationCards:hover::before {
+  opacity: 0.8;
+}
+/* FOR HOVER EFFECT — TO ENSURE TEXTS IN THE DIV ARE LAYERED ABOVE EVERYTHING ELSE*/
+.locationCards div {
+  position: relative;
+  z-index: 1;
+}

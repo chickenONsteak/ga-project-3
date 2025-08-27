@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import LocationCard from "../components/LocationCard";
 import useFetch from "../hooks/useFetch";
+import styles from "../styles/Homepage.module.css";
 
 const Homepage = (props) => {
   const [filter, setFilter] = useState("");
@@ -39,7 +40,6 @@ const Homepage = (props) => {
   return (
     <div className="container">
       <Filter setFilter={setFilter} />
-      <div>{filter}</div>
 
       {isError && error}
       {!isError && (
