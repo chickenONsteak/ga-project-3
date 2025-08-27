@@ -1,0 +1,26 @@
+.petContainer {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.petList {
+  display: grid;
+  gap: 6px;
+}
+
+.petRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.petNote {
+  opacity: 0.7;
+}

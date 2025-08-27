@@ -1,0 +1,49 @@
+.eventCard {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+}
+
+.statusRow {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusBadge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  /* colors come from inline `style={statusStyle}` */
+}
+
+.statusSelect {
+  font-size: 12px;
+}
+
+.description {
+  margin-top: 8px;
+  white-space: pre-wrap;
+}
+
+.actions {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.errorText {
+  color: red;
+}

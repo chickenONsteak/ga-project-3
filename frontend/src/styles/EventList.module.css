@@ -1,0 +1,4 @@
+.eventListContainer {
+  display: grid;
+  gap: 16px;
+}
