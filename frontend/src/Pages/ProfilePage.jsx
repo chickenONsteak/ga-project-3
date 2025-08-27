@@ -8,6 +8,7 @@ import AddPetModal from "../components/ProfilePage/AddPetModal";
 import UpdatePetModal from "../components/ProfilePage/UpdatePetModal";
 import HostingEvents from "../components/ProfilePage/HostingEvents";
 import LocationCard from "../components/LocationCard";
+import UpdateProfileModal from "../components/ProfilePage/UpdateProfileModal";
 
 const ProfilePage = () => {
   const [isError, setIsError] = useState(false);
@@ -20,6 +21,7 @@ const ProfilePage = () => {
   const [hostingEvents, setHostingEvents] = useState([]);
   const [showAddPetModal, setShowAddPetModal] = useState(false);
   const [showUpdatePetModal, setShowUpdatePetModal] = useState(false);
+  const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
   const [selectedPetDetails, setSelectedPetDetails] = useState([]);
   const [forceRender, setForceRender] = useState(false);
 
@@ -93,6 +95,14 @@ const ProfilePage = () => {
           setForceRender={setForceRender}
         />
       )}
+      {showUpdateProfileModal && (
+        <UpdateProfileModal
+          userDetails={userDetails}
+          setUserDetails={setUserDetails}
+          setShowUpdateProfileModal={setShowUpdateProfileModal}
+          setForceRender={setForceRender}
+        />
+      )}
 
       {isError && error}
       {!isError && (
@@ -106,7 +116,12 @@ const ProfilePage = () => {
                   description={userDetails.description}
                 />
               </div>
-              <button className="col-md-1">Edit</button>
+              <button
+                className="col-md-1"
+                onClick={() => setShowUpdateProfileModal(true)}
+              >
+                Edit
+              </button>
             </div>
 
             <div className="col-md-1"></div>
