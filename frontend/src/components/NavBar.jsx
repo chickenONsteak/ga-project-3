@@ -12,6 +12,7 @@ const NavBar = (props) => {
   const handleLogout = () => {
     // CLEAR accessToken AND role STATES
     userContext.setAccessToken("");
+    localStorage.removeItem("access_token");
     userContext.setRole("");
     navigate("/home");
   };

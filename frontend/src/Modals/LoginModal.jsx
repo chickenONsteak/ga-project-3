@@ -27,6 +27,7 @@ const LoginOverlay = (props) => {
 
     if (res.ok) {
       userContext.setAccessToken(res.data.access);
+      localStorage.setItem("access_token", res.data.access);
       const decoded = jwtDecode(res.data.access);
       userContext.setRole(decoded.role);
       props.setShowLoginModal(false);
