@@ -97,8 +97,9 @@ const ProfilePage = () => {
       )}
       {showUpdateProfileModal && (
         <UpdateProfileModal
-          age={userDetails.age}
-          description={userDetails.description}
+          userDetails={userDetails}
+          setUserDetails={setUserDetails}
+          setShowUpdateProfileModal={setShowUpdateProfileModal}
         />
       )}
 
