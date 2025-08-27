@@ -159,37 +159,36 @@ const JoinEventPanel = ({ eventId, onSuccess }) => {
 
   return (
     <div className={styles.panel}>
-  {!hasJoined && (
-    <PetSelector
-      pets={myPets}
-      value={selectedPetIds}
-      onChange={setSelectedPetIds}
-    />
-  )}
+      {!hasJoined && (
+        <PetSelector
+          pets={myPets}
+          value={selectedPetIds}
+          onChange={setSelectedPetIds}
+        />
+      )}
 
-  {error ? <div className={styles.error}>{String(error)}</div> : null}
+      {error ? <div className={styles.error}>{String(error)}</div> : null}
 
-  {!hasJoined ? (
-    <button
-      type="button"
-      className={styles.button}
-      disabled={!canClick}
-      onClick={handleJoin}
-    >
-      {isJoining ? "Joining…" : "Join event"}
-    </button>
-  ) : (
-    <button
-      type="button"
-      className={styles.button}
-      disabled={!canClick}
-      onClick={handleLeave}
-    >
-      {isLeaving ? "Leaving…" : "Leave event"}
-    </button>
-  )}
-</div>
-
+      {!hasJoined ? (
+        <button
+          type="button"
+          className={styles.button}
+          disabled={!canClick}
+          onClick={handleJoin}
+        >
+          {isJoining ? "Joining…" : "Join event"}
+        </button>
+      ) : (
+        <button
+          type="button"
+          className={styles.button}
+          disabled={!canClick}
+          onClick={handleLeave}
+        >
+          {isLeaving ? "Leaving…" : "Leave event"}
+        </button>
+      )}
+    </div>
   );
 };
 
