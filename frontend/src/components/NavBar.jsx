@@ -60,9 +60,9 @@ const NavBar = (props) => {
             >
               Logout
             </button>
-            <div className={`col-md-2 ${styles.navbarButtons}`}></div>
+            <div className="col-md-1"></div>
             <button
-              className="col-md-1"
+              className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => navigate("/profile-page")}
             >
               Profile

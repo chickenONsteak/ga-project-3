@@ -19,10 +19,10 @@ const LoginOverlay = (props) => {
 
     // do auth here
     const res = await fetchData("/api/auth/login", "POST", {
-      // username,
-      // password,
-      username: "austin2",
-      password: "passwordpassword",
+      username,
+      password,
+      // username: "austin2",
+      // password: "passwordpassword",
     });
 
     if (res.ok) {
