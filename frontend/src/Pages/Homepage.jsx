@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Filter from "./Filter";
-import LocationCard from "./LocationCard";
+import Filter from "../components/Filter";
+import LocationCard from "../components/LocationCard";
 import useFetch from "../hooks/useFetch";
 
 const Homepage = (props) => {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import NavBar from "./components/NavBar";
 import { Navigate, Route, Routes } from "react-router";
-import Homepage from "./components/Homepage";
-import EventsListingPage from "./components/EventsListingPage";
-import ProfilePage from "./components/ProfilePage";
+import Homepage from "./Pages/Homepage";
+import EventsListingPage from "./Pages/EventsListingPage";
+import ProfilePage from "./Pages/ProfilePage";
 import UserContext from "./context/user";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./Routes/ProtectedRoute";
 import LoginModal from "./components/LoginModal";
 
 function App() {

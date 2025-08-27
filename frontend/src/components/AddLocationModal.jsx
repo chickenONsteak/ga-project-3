@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import styles from "./Modal.module.css";
+import styles from "../styles/Modal.module.css";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router";
 import ReactDOM from "react-dom";
@@ -15,7 +15,7 @@ const AddLocationOverlay = (props) => {
     name: "",
     address: "",
     region: "",
-    capacity: "", //min 1, force validation check on submit
+    capacity: null, //min 1, force validation check on submit
     imageURI: "",
   });
 
@@ -64,7 +64,7 @@ const AddLocationOverlay = (props) => {
         imageURI: "",
       });
       props.setShowNewLocationModal(false);
-      navigate("/home"); 
+      navigate("/home");
     } else {
       setError(res.message || "Failed to create location"); //allow message for other errors
       setIsError(true);

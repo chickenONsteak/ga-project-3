@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import styles from "./Modal.module.css";
+import styles from "../styles/Modal.module.css";
 import ReactDOM from "react-dom";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
