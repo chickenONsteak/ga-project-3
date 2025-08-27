@@ -1,1 +1,0 @@
-// listByLocation, create, getById, join/leave
