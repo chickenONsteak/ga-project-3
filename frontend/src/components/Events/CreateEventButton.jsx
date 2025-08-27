@@ -15,7 +15,7 @@ const CreateEventButton = ({ locationId, onCreated }) => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)}>Host an Event</button>
+      <button className={styles.hostBtn} onClick={() => setOpen(true)}>Host an Event</button>
 
       {open && (
         // click outside of overlay also can close (prevented by stoppropagate below)

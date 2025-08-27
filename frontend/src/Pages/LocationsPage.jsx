@@ -74,18 +74,19 @@ const handleEventCreated = (newEvent) => {
       >
         <h1 className={styles.locationName}>{location.name}</h1>
         <p>{location.address}</p>
-        <p>{location.region}</p>
+        <p>Region: {location.region}</p>
         {location.capacity ? <p>Capacity: {location.capacity}</p> : null}
       </div>
 
       <div className={styles.eventsList}>
+        <div className={styles.eventsHeader}>
         <h2 className={styles.eventsH2}>Events</h2>
         {localStorage.getItem("access_token") && (
        <CreateEventButton
             locationId={location._id}
             onCreated={handleEventCreated}
           />
-          )}
+          )}</div>
           {/* button only available to logged in users */}
         <EventList refreshFromParent={refreshCount}/>
       </div>

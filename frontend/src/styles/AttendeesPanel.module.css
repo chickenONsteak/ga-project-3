@@ -1,5 +1,7 @@
 .attendeesWrapper {
   margin-top: 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .attendeesTitle {
@@ -14,7 +16,9 @@
 }
 
 .badge {
-  padding: 2px 6px;
-  border: 1px solid #eee;
-  border-radius: 999px; /* very very round */
+  padding: 10px;
+  border: 2px solid #eee;
+  border-radius: 999px;
+  background-color: rgb(173, 174, 221);
+  margin:0;
 }

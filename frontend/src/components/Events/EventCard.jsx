@@ -94,16 +94,28 @@ const EventCard = ({ event, onJoined }) => {
   return (
     <div className={styles.eventCard}>
       <div className={styles.headerRow}>
-        <div>
+        <div className={styles.eventCardLeft}>
           <h3 className={styles.title}>{title}</h3>
-
           <div>
-            {new Date(startAt).toLocaleString()}
-            {new Date(endAt).toLocaleString()}
+            <p></p>
+            {new Date(startAt).toLocaleString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })}
+            <span> - </span>
+            {new Date(endAt).toLocaleString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })}
           </div>
-
-          <div>Host: {hostUsername ? hostUsername : "Unknown"}</div>
-
           <div className={styles.statusRow}>
             <span className={styles.statusBadge} style={statusStyle}>
               {status}
@@ -123,14 +135,27 @@ const EventCard = ({ event, onJoined }) => {
               </select>
             )}
           </div>
+          <div>
+            <b>Host:</b> {hostUsername ? hostUsername : "Unknown"}
+          </div>
+
           {description ? (
-            <div className={styles.description}>Description: {description}</div>
+            <div className={styles.description}>
+              <b>Description: </b>
+              {description}
+            </div>
           ) : null}
         </div>
-
+        <div className={styles.eventCardMiddle}>
+          <AttendeesPanel eventId={_id} refreshCount={refreshCount} />
+        </div>
         <div className={styles.actions}>
           {canManage && (
-            <button type="button" onClick={handleDelete}>
+            <button
+              type="button"
+              className={styles.deleteBtn}
+              onClick={handleDelete}
+            >
               Delete
             </button>
           )}
@@ -138,7 +163,6 @@ const EventCard = ({ event, onJoined }) => {
           {error ? <div className={styles.errorText}>{error}</div> : null}
         </div>
       </div>
-      <AttendeesPanel eventId={_id} refreshCount={refreshCount} />
     </div>
   );
 };

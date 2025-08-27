@@ -1,21 +1,26 @@
 .panel {
-  min-width: 260px;
-  display: grid;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
+  height: 16rem;
+  margin-top:auto;
 }
 
 .error {
   color: red;
 }
 
-.button {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-}
 .button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.leaveButton, .joinButton{
+  height: 3rem;
+  width: 100%;
+}
+
+.btnWrapper{
+margin-top: auto;
 }

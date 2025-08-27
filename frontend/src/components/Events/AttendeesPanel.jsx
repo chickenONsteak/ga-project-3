@@ -53,26 +53,30 @@ const AttendeesPanel = ({ eventId, refreshCount = 0 }) => {
 
   const userCount = users.length;
   const petCount = pets.length;
+  const totalCount = userCount + petCount
 
   return (
     <div className={styles.attendeesWrapper}>
-      <span className={styles.attendeesTitle}>Attendees</span>: {userCount}{" "}
-      human{userCount !== 1 ? "s" : ""}, {petCount} pet
+      <div>
+      <span className={styles.attendeesTitle}>Attendees</span>: {userCount} {" "}
+       human{userCount !== 1 ? "s" : ""}, {petCount} pet
       {petCount !== 1 ? "s" : ""}
+      {/* {totalCount} */}
+      </div>
       {!!users.length && (
         <div className={styles.list}>
           {users.map((u) => (
             <span key={u._id} className={styles.badge}>
-              {u.username}
+              {"\u{1F464}"} {u.username}
             </span>
           ))}
 
           {!!pets.length && (
             <div className={styles.list}>
               {pets.map((p) => (
-                <span key={p._id} className={styles.badge}>
-                  {p.name}
-                </span>
+                <p key={p._id} className={styles.badge}>
+                   {"\u{1F43E}"} {p.name}
+                </p>
               ))}
             </div>
           )}

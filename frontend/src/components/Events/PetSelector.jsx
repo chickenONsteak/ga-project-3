@@ -16,6 +16,7 @@ const PetSelector = ({
 
   return (
     <div className={styles.petContainer}>
+      <h5>Bring your pet along:</h5>
       <div className={styles.toolbar}>
         <button type="button" onClick={selectNone}>
           None

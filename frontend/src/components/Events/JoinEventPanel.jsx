@@ -168,11 +168,11 @@ const JoinEventPanel = ({ eventId, onSuccess }) => {
       )}
 
       {error ? <div className={styles.error}>{String(error)}</div> : null}
-
+<div className={styles.btnWrapper}>
       {!hasJoined ? (
         <button
           type="button"
-          className={styles.button}
+          className={styles.joinButton}
           disabled={!canClick}
           onClick={handleJoin}
         >
@@ -181,13 +181,13 @@ const JoinEventPanel = ({ eventId, onSuccess }) => {
       ) : (
         <button
           type="button"
-          className={styles.button}
+          className={styles.leaveButton}
           disabled={!canClick}
           onClick={handleLeave}
         >
           {isLeaving ? "Leaving…" : "Leave event"}
         </button>
-      )}
+      )}</div>
     </div>
   );
 };

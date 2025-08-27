@@ -1,33 +1,39 @@
 .locationContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;   
-  padding: 1rem; 
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
 .locationBanner {
-  border-radius: 0.75rem; 
+  border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); 
-  padding: 1rem; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
   background-size: cover;
   background-position: center;
   color: white;
 }
 
 .locationName {
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
   font-weight: bold;
   color: white;
 }
 
 .eventsList {
-    /* continue after EventCards */
- display: flex;
+  display: flex;
+  flex-direction: column;
 }
 
 .eventsH2 {
-  font-size: 1.25rem; 
+  font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+
+.eventsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

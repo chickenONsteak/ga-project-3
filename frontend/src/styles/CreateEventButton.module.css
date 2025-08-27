@@ -30,3 +30,8 @@
   font-size: 1.2rem;
   cursor: pointer;
 }
+
+.hostBtn {
+    width: 15rem;
+    height: 2.5rem;
+}
