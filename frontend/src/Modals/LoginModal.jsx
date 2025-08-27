@@ -19,8 +19,10 @@ const LoginOverlay = (props) => {
 
     // do auth here
     const res = await fetchData("/api/auth/login", "POST", {
-      username,
-      password,
+      // username,
+      // password,
+      username: "austin2",
+      password: "passwordpassword",
     });
 
     if (res.ok) {
@@ -46,6 +48,7 @@ const LoginOverlay = (props) => {
             className="col-md-3"
             type="text"
             placeholder="username"
+            value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
         </div>
@@ -54,6 +57,7 @@ const LoginOverlay = (props) => {
             className="col-md-3"
             type="text"
             placeholder="password"
+            value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>

@@ -2,19 +2,12 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../context/user";
 import logo from "../assets/logo.png";
-import AddLocationModal from "./AddLocationModal";
+import AddLocationModal from "../Modals/AddLocationModal";
 
 const NavBar = (props) => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const isLoggedIn = userContext.accessToken.length > 0;
-  const [showNewLocationModal, setShowNewLocationModal] = useState(false);
-
-  // WHEN USER CLICKS LOGO, NAVIGATE TO HOMEPAGE AND RESET FILTER
-  const handleClickLogo = () => {
-    props.setResetFilter(true);
-    navigate("/home");
-  };
 
   const handleLogout = () => {
     // CLEAR accessToken AND role STATES
@@ -30,12 +23,12 @@ const NavBar = (props) => {
           className="col-md-2 brand-logo"
           src={logo}
           alt="Kopi & Paws logo"
-          onClick={() => handleClickLogo()}
+          onClick={() => navigate("/home")}
         />
 
-        {showNewLocationModal && (
+        {props.showNewLocationModal && (
           <AddLocationModal
-            setShowNewLocationModal={setShowNewLocationModal}
+            setShowNewLocationModal={props.setShowNewLocationModal}
             allLocations={props.allLocations}
             setAllLocations={props.setAllLocations}
           />
@@ -46,7 +39,7 @@ const NavBar = (props) => {
             <div className="col-md-4"></div>
             <button
               className="col-md-2"
-              onClick={() => setShowNewLocationModal(true)}
+              onClick={() => props.setShowNewLocationModal(true)}
             >
               Add location
             </button>

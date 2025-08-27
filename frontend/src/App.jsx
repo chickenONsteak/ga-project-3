@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
 import { Navigate, Route, Routes } from "react-router";
 import Homepage from "./Pages/Homepage";
@@ -6,14 +6,13 @@ import EventsListingPage from "./Pages/EventsListingPage";
 import ProfilePage from "./Pages/ProfilePage";
 import UserContext from "./context/user";
 import ProtectedRoute from "./Routes/ProtectedRoute";
-import LoginModal from "./components/LoginModal";
+import LoginModal from "./Modals/LoginModal";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [role, setRole] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [resetFilter, setResetFilter] = useState(false);
-  const [allLocations, setAllLocations] = useState([]);
+  const [showNewLocationModal, setShowNewLocationModal] = useState(false);
 
   return (
     <div className="container">
@@ -21,22 +20,14 @@ function App() {
         value={{ accessToken, setAccessToken, role, setRole }}
       >
         <NavBar
-          setResetFilter={setResetFilter}
-          allLocations={allLocations}
-          setAllLocations={setAllLocations}
+          showNewLocationModal={showNewLocationModal}
+          setShowNewLocationModal={setShowNewLocationModal}
         />
         {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
         <Routes>
           <Route
             path="/home"
-            element={
-              <Homepage
-                resetFilter={resetFilter}
-                setResetFilter={setResetFilter}
-                allLocations={allLocations}
-                setAllLocations={setAllLocations}
-              />
-            }
+            element={<Homepage showNewLocationModal={showNewLocationModal} />}
           />
           <Route path="/events/:locationId" element={<EventsListingPage />} />
           <Route

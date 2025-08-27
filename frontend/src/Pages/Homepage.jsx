@@ -8,7 +8,6 @@ const Homepage = (props) => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(null);
   const fetchData = useFetch();
-  // const [props.allLocations, props.setAllLocations] = useState([]);
   const [locations, setLocations] = useState([]);
 
   const getAllLocations = async () => {
@@ -18,41 +17,24 @@ const Homepage = (props) => {
     const res = await fetchData("/api/locations/", "GET");
 
     if (res.ok) {
-      props.setAllLocations(res.data);
+      // IF THERE'S FILTER
+      if (filter) {
+        const filteredLocations = res.data.filter(
+          (location) => location.region === filter
+        );
+        setLocations(filteredLocations);
+      } else {
+        setLocations(res.data);
+      }
     } else {
       setError(res.message);
       setIsError(true);
     }
   };
 
-  const filterLocations = () => {
-    // IF USER CLICKED ON LOGO, RESET FILTER
-    if (props.resetFilter) {
-      props.setResetFilter(false);
-      setFilter("");
-    }
-
-    if (filter) {
-      const filteredLocations = props.allLocations.filter(
-        (location) => location.region === filter
-      );
-      setLocations(filteredLocations);
-    } else {
-      setLocations(props.allLocations);
-    }
-  };
-
-  // NEED DOUBLE useEffect HERE DUE TO HOW getAllLocations IS ASYNC, MEANING THE filterLocations() WILL RUN FIRST
-  // MAKES IT SO THAT WHEN getAllLocations() IS DONE RUNNING AND SETSTATE FOR props.allLocations, IT calls filterLocations()
   useEffect(() => {
-    filterLocations();
-  }, [props.allLocations]);
-
-  // MAKES IT SO THAT WHEN FILTER IS APPLIED (filter STATE CHANGES), WILL CALL getAllLocations() AGAIN WHICH WILL THEN CAUSE A CHANGE IN props.allLocations AND HENCE TRIGGER THE ABOVE useEffect again
-  // SAME LOGIC FOR THE props.resetFilter (WHEN USER CLICKS ON LOGO AND resetFilter STATE CHANGES)
-  useEffect(() => {
-    getAllLocations();
-  }, [props.resetFilter, filter]);
+    if (!props.showNewLocationModal) getAllLocations();
+  }, [filter, props.showNewLocationModal]);
 
   return (
     <div className="container">

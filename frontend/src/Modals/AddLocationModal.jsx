@@ -15,7 +15,7 @@ const AddLocationOverlay = (props) => {
     name: "",
     address: "",
     region: "",
-    capacity: null, //min 1, force validation check on submit
+    capacity: "", //min 1, force validation check on submit
     imageURI: "",
   });
 
@@ -70,24 +70,6 @@ const AddLocationOverlay = (props) => {
       setIsError(true);
     }
   };
-
-  //   const getAllLocations = async () => {
-  //     setIsError(false);
-  //     setError(null);
-
-  //     const res = await fetchData("/api/locations/", "GET");
-
-  //     if (res.ok) {
-  //       props.setAllLocations(res.data);
-  //     } else {
-  //       setError(res.message);
-  //       setIsError(true);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getAllLocations();
-  //   }, [props.allLocations]);
 
   return (
     <div className={styles.backdrop}>
