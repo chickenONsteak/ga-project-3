@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import styles from "../styles/Modal.module.css";
-import useFetch from "../hooks/useFetch";
+import styles from "../../styles/Modal.module.css";
+import useFetch from "../../hooks/useFetch";
 import ReactDOM from "react-dom";
-import UserContext from "../context/user";
+import UserContext from "../../context/user";
 
 const AddPetOverlay = (props) => {
   const [newPet, setNewPet] = useState({});
@@ -31,8 +31,10 @@ const AddPetOverlay = (props) => {
       {
         username: props.username,
         name: newPet.name,
-        breed: newPet.age,
+        breed: newPet.breed,
+        age: newPet.age,
         description: newPet.description,
+        image: newPet.imageURI,
       },
       userContext.accessToken
     );
@@ -58,7 +60,7 @@ const AddPetOverlay = (props) => {
             type="text"
             name="name"
             placeholder="required"
-            value={newPet.name || ""}
+            value={newPet?.name || ""}
             onChange={(event) => handleChange(event)}
           />
         </div>
@@ -69,7 +71,7 @@ const AddPetOverlay = (props) => {
             type="text"
             name="breed"
             placeholder="optional"
-            value={newPet.breed || ""}
+            value={newPet?.breed || ""}
             onChange={(event) => handleChange(event)}
           />
         </div>
@@ -80,7 +82,7 @@ const AddPetOverlay = (props) => {
             type="number"
             name="age"
             placeholder="optional"
-            value={newPet.age || ""}
+            value={newPet?.age || ""}
             onChange={(event) => handleChange(event)}
           />
         </div>
@@ -91,10 +93,22 @@ const AddPetOverlay = (props) => {
             type="text"
             name="description"
             placeholder="optional"
-            value={newPet.description || ""}
+            value={newPet?.description || ""}
             onChange={(event) => handleChange(event)}
           />
         </div>
+        <div className="row my-1">
+          <div className="col-md-3">Image URI: </div>
+          <input
+            className="col-md-3"
+            type="text"
+            name="imageURI"
+            placeholder="optional"
+            value={newPet?.imageURI || ""}
+            onChange={(event) => handleChange(event)}
+          />
+        </div>
+
         <div className="row my-2">
           <button className="col-md-2" onClick={addNewPet}>
             Add
@@ -120,7 +134,7 @@ const AddPetModal = (props) => {
           username={props.username}
           setForceRender={props.setForceRender}
         />,
-        document.querySelector("#modal-root-pet")
+        document.querySelector("#modal-root-addPet")
       )}
     </>
   );

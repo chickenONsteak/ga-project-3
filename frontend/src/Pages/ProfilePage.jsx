@@ -4,7 +4,8 @@ import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
 import UserDetails from "../components/ProfilePage/UserDetails";
 import PetsDetails from "../components/ProfilePage/PetsDetails";
-import AddPetModal from "../Modals/AddPetModal";
+import AddPetModal from "../components/ProfilePage/AddPetModal";
+import UpdatePetModal from "../components/ProfilePage/UpdatePetModal";
 
 const ProfilePage = () => {
   const [isError, setIsError] = useState(false);
@@ -16,6 +17,7 @@ const ProfilePage = () => {
   const [petDetails, setPetDetails] = useState([]);
   const [showAddPetModal, setShowAddPetModal] = useState(false);
   const [showUpdatePetModal, setShowUpdatePetModal] = useState(false);
+  const [selectedPetDetails, setSelectedPetDetails] = useState([]);
   const [forceRender, setForceRender] = useState(false);
 
   const getOwnProfile = async () => {
@@ -43,6 +45,11 @@ const ProfilePage = () => {
     }
   };
 
+  const handleUpdateButton = (owner, id, name, breed, age, description) => {
+    setSelectedPetDetails({ owner, id, name, breed, age, description });
+    setShowUpdatePetModal(true);
+  };
+
   const deletePetById = async (id) => {
     const res = await fetchData(
       `/api/pets/${id}`,
@@ -67,7 +74,6 @@ const ProfilePage = () => {
 
   return (
     <div className="container">
-      {isError && error}
       {showAddPetModal && (
         <AddPetModal
           username={username}
@@ -75,6 +81,15 @@ const ProfilePage = () => {
           setForceRender={setForceRender}
         />
       )}
+      {showUpdatePetModal && (
+        <UpdatePetModal
+          selectedPetDetails={selectedPetDetails}
+          setShowUpdatePetModal={setShowUpdatePetModal}
+          setForceRender={setForceRender}
+        />
+      )}
+
+      {isError && error}
       {!isError && (
         <>
           <div className="row my-2">
@@ -113,7 +128,19 @@ const ProfilePage = () => {
                       age={pet.age}
                       description={pet.description}
                     />
-                    <button onClick={() => setShowUpdatePetModal(true)}>
+                    <button
+                      onClick={() =>
+                        handleUpdateButton(
+                          username,
+                          pet._id,
+                          pet.name,
+                          pet.breed,
+                          pet.age,
+                          pet.description,
+                          pet.image
+                        )
+                      }
+                    >
                       Update
                     </button>
                     <button onClick={() => deletePetById(pet._id)}>
