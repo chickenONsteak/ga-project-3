@@ -15,8 +15,11 @@ const ProfilePage = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [petDetails, setPetDetails] = useState([]);
   const [showAddPetModal, setShowAddPetModal] = useState(false);
+  const [showUpdatePetModal, setShowUpdatePetModal] = useState(false);
+  const [forceRender, setForceRender] = useState(false);
 
   const getOwnProfile = async () => {
+    setForceRender(false);
     setIsError(false);
     setError(null);
     const res = await fetchData(
@@ -40,11 +43,27 @@ const ProfilePage = () => {
     }
   };
 
+  const deletePetById = async (id) => {
+    const res = await fetchData(
+      `/api/pets/${id}`,
+      "DELETE",
+      undefined,
+      userContext.accessToken
+    );
+
+    if (res.ok) {
+      setForceRender(true);
+    } else {
+      setError(res.message);
+      setIsError(true);
+    }
+  };
+
   useEffect(() => {
     if (!showAddPetModal) {
       getOwnProfile();
     }
-  }, [showAddPetModal]);
+  }, [forceRender]);
 
   return (
     <div className="container">
@@ -53,6 +72,7 @@ const ProfilePage = () => {
         <AddPetModal
           username={username}
           setShowAddPetModal={setShowAddPetModal}
+          setForceRender={setForceRender}
         />
       )}
       {!isError && (
@@ -93,6 +113,12 @@ const ProfilePage = () => {
                       age={pet.age}
                       description={pet.description}
                     />
+                    <button onClick={() => setShowUpdatePetModal(true)}>
+                      Update
+                    </button>
+                    <button onClick={() => deletePetById(pet._id)}>
+                      Delete
+                    </button>
                   </div>
                 );
               })}

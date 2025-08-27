@@ -39,6 +39,7 @@ const AddPetOverlay = (props) => {
 
     if (res.ok) {
       setNewPet([]);
+      props.setForceRender(true);
       props.setShowAddPetModal(false);
     } else {
       setError(res.message);
@@ -117,6 +118,7 @@ const AddPetModal = (props) => {
         <AddPetOverlay
           setShowAddPetModal={props.setShowAddPetModal}
           username={props.username}
+          setForceRender={props.setForceRender}
         />,
         document.querySelector("#modal-root-pet")
       )}
