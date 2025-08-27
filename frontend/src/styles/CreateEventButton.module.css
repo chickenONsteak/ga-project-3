@@ -1,0 +1,32 @@
+.eventFormOverlay {
+  position: fixed;
+  inset: 0; /* stretch and fill screen */
+  background: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+.eventFormContainer {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  width: 420px;
+}
+
+.eventFormHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eventFormTitle {
+  margin: 0;
+}
+
+.eventFormCloseBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

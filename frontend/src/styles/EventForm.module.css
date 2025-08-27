@@ -1,0 +1,17 @@
+.eventForm {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.descriptionFill {
+  resize: vertical; /* user can resize box vertically*/
+  width: 100%;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import EventList from "../components/Events/EventList";
 import styles from "../styles/LocationsPage.module.css";
+import CreateEventButton from "../components/Events/CreateEventButton";
 
 const LocationsPage = () => {
   const { locationId } = useParams();
@@ -53,6 +54,9 @@ const LocationsPage = () => {
     load();
   }, [locationId]);
 
+   const handleEventCreated = (created) => {
+    setEvents((prev) => [created, ...prev]); }
+
   if (loading) return <div>Loading page ...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!location) return <div>Location not found.</div>;
@@ -73,6 +77,13 @@ const LocationsPage = () => {
 
       <div className={styles.eventsList}>
         <h2 className={styles.eventsH2}>Events</h2>
+        {localStorage.getItem("access_token") && (
+       <CreateEventButton
+            locationId={location._id}
+            onCreated={handleEventCreated}
+          />
+          )}
+          {/* button only available to logged in users */}
         <EventList events={events} />
       </div>
     </div>
