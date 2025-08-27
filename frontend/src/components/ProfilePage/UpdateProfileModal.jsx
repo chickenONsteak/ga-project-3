@@ -14,6 +14,11 @@ const UpdateProfileOverlay = (props) => {
           <div className="col-md-3">Age: </div>
           <input className="col-md-3" type="text" placeholder="optional" />
         </div>
+
+        <div className="row my-1">
+          <div className="col-md-12">Share a bit about yourself! </div>
+          <input className="col-md-3" type="text" placeholder="optional" />
+        </div>
       </div>
     </div>
   );
