@@ -359,7 +359,8 @@ export const updateEvent = async (req, res) => {
     if (description !== undefined) update.description = String(description);
 
     if (locationId !== undefined) {
-      if (!isValidId(locationId)) { //ensure format is valid
+      if (!isValidId(locationId)) {
+        //ensure format is valid
         return res
           .status(400)
           .json({ status: "error", msg: "Invalid locationId." });
