@@ -7,6 +7,8 @@ import ProfilePage from "./Pages/ProfilePage";
 import UserContext from "./context/user";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import LoginModal from "./Modals/LoginModal";
+import AdminPage from "./Pages/AdminPage";
+import RegisterPage from "./Pages/RegisterPage";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -30,11 +32,20 @@ function App() {
             element={<Homepage showNewLocationModal={showNewLocationModal} />}
           />
           <Route path="/locations/:locationId" element={<LocationsPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route
-            path="/profile-page"
+            path="/profile"
             element={
               <ProtectedRoute setShowLoginModal={setShowLoginModal}>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute setShowLoginModal={setShowLoginModal}>
+                <AdminPage />
               </ProtectedRoute>
             }
           />

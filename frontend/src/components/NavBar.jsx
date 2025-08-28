@@ -37,7 +37,26 @@ const NavBar = (props) => {
           />
         )}
 
-        {userContext.role === "admin" ? (
+        {!isLoggedIn && (
+          <>
+            <div className="col-md-7"></div>
+            <button
+              className={`col-md-1 ${styles.navbarButtons}`}
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </button>
+            <div className="col-md-1"></div>
+            <button
+              className={`col-md-1 ${styles.navbarButtons}`}
+              onClick={() => navigate("/profile")}
+            >
+              Login
+            </button>
+          </>
+        )}
+
+        {isLoggedIn && userContext.role === "admin" && (
           <>
             <div className="col-md-4"></div>
             <button
@@ -46,14 +65,9 @@ const NavBar = (props) => {
             >
               Add location
             </button>
-            <div className="col-md-1"></div>
-          </>
-        ) : (
-          <div className="col-md-7"></div>
-        )}
 
-        {isLoggedIn ? (
-          <>
+            <div className="col-md-1"></div>
+
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => handleLogout()}
@@ -63,19 +77,29 @@ const NavBar = (props) => {
             <div className="col-md-1"></div>
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
-              onClick={() => navigate("/profile-page")}
+              onClick={() => navigate("/admin")}
             >
-              Profile
+              Admin
             </button>
           </>
-        ) : (
+        )}
+
+        {isLoggedIn && userContext.role !== "admin" && (
           <>
-            <div className="col-md-2"></div>
+            <div className="col-md-7"></div>
+
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
-              onClick={() => navigate("/profile-page")}
+              onClick={() => handleLogout()}
             >
-              Login
+              Logout
+            </button>
+            <div className="col-md-1"></div>
+            <button
+              className={`col-md-1 ${styles.navbarButtons}`}
+              onClick={() => navigate("/profile")}
+            >
+              Profile
             </button>
           </>
         )}
