@@ -169,19 +169,20 @@ const ProfilePage = () => {
             </div>
           </div>
 
+          <h2>Hosting</h2>
           <div className="row">
-            <h2>Hosting</h2>
             {hostingEvents.map((event) => {
               return (
-                <div key={event._id}>
-                  {/* <HostingEvents event={event} /> */}
-                  <LocationCard
-                    name={event.title}
-                    address={event.location.name}
-                    region={event.startAt}
-                    capacity={event.endAt}
-                  />
-                </div>
+                <LocationCard
+                  key={event._id}
+                  name={event.title}
+                  address={event.location.name}
+                  region={event.startAt}
+                  capacity={event.endAt}
+                  imageURI={
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlhCYCChyhMwcgyVo1Ar4BCTra5Ebe4Tn2qQ&s"
+                  }
+                />
               );
             })}
           </div>
