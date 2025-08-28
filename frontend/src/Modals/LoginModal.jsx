@@ -21,8 +21,6 @@ const LoginOverlay = (props) => {
     const res = await fetchData("/api/auth/login", "POST", {
       username,
       password,
-      // username: "austin2",
-      // password: "passwordpassword",
     });
 
     if (res.ok) {
