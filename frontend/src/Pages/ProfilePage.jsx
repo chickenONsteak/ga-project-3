@@ -6,7 +6,6 @@ import UserDetails from "../components/ProfilePage/UserDetails";
 import PetsDetails from "../components/ProfilePage/PetsDetails";
 import AddPetModal from "../components/ProfilePage/AddPetModal";
 import UpdatePetModal from "../components/ProfilePage/UpdatePetModal";
-import HostingEvents from "../components/ProfilePage/HostingEvents";
 import LocationCard from "../components/LocationCard";
 import UpdateProfileModal from "../components/ProfilePage/UpdateProfileModal";
 
@@ -108,52 +107,34 @@ const ProfilePage = () => {
       {!isError && (
         <>
           <div className="row my-2">
-            <div className="col-md-8">
-              <h2>{`${username}'s Profile`}</h2>
-              <div className="row-my-1">
-                <UserDetails
-                  age={userDetails.age}
-                  description={userDetails.description}
-                />
-              </div>
-              <button
-                className="col-md-1"
-                onClick={() => setShowUpdateProfileModal(true)}
-              >
-                Edit
-              </button>
-            </div>
-
-            <div className="col-md-1"></div>
-
-            <div className="col-md-3">
-              <h2>Hosting</h2>
-              {/* <div>{JSON.stringify(hostingEvents)}</div> */}
-              <div className="row my-1"></div>
-              {hostingEvents.map((event) => {
-                return (
-                  <div key={event._id}>
-                    {/* <HostingEvents event={event} /> */}
-                    <LocationCard
-                      name={event.title}
-                      address={event.location.name}
-                      region={event.startAt}
-                      capacity={event.endAt}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            <button
+              className="col-md-1"
+              onClick={() => setShowUpdateProfileModal(true)}
+            >
+              Edit
+            </button>
+            <h2 className="col-md-11">{`${username}'s Profile`}</h2>
           </div>
 
+          <div className="row-my-1">
+            <UserDetails
+              age={userDetails.age}
+              description={userDetails.description}
+            />
+          </div>
+
+          <div>{"\u00A0"}</div>
+          <div>{"\u00A0"}</div>
+
           <div className="row my-2">
-            <h2 className="col-md-3">Pets owned</h2>
             <button
-              className="col-md-2"
+              className="col-md-1"
               onClick={() => setShowAddPetModal(true)}
             >
               Add pet
             </button>
+            <h2 className="col-md-11">Pets owned</h2>
+
             <div className="row my-1">
               {petDetails.map((pet) => {
                 return (
@@ -186,6 +167,23 @@ const ProfilePage = () => {
                 );
               })}
             </div>
+          </div>
+
+          <div className="row">
+            <h2>Hosting</h2>
+            {hostingEvents.map((event) => {
+              return (
+                <div key={event._id}>
+                  {/* <HostingEvents event={event} /> */}
+                  <LocationCard
+                    name={event.title}
+                    address={event.location.name}
+                    region={event.startAt}
+                    capacity={event.endAt}
+                  />
+                </div>
+              );
+            })}
           </div>
         </>
       )}
