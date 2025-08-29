@@ -2,7 +2,7 @@
 
 ---
 
-![Kopi & Paws](/frontend//src/assets/kopi&paws.png)
+![Kopi & Paws](/assets//kopi&paws.png)
 
 ---
 
@@ -17,6 +17,8 @@
 - [Setup & Installation]()
 
 ---
+
+## About Kopi & Paws
 
 Kopi & Paws is a React app for planning paw-some meetups at curated, pet-friendly locations. Browse venues with photos and capacity, spin up an event with a title, description, and date/time, then invite the crew to join. Guests can RSVP with or without their pets, and you’ll see humans and fur friends show up live in the attendee list.
 
