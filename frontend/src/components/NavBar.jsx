@@ -20,15 +20,15 @@ const NavBar = (props) => {
   };
 
   return (
-    <div className="container">
-      <div className="row my-4">
+    <>
+      {/* <div className="row my-4"> */}
+      <div className={styles.navBarContainer}>
         <img
           className="col-md-2 brand-logo"
           src={logo}
           alt="Kopi & Paws logo"
           onClick={() => navigate("/home")}
         />
-
         {props.showNewLocationModal && (
           <AddLocationModal
             setShowNewLocationModal={props.setShowNewLocationModal}
@@ -38,27 +38,27 @@ const NavBar = (props) => {
         )}
 
         {!isLoggedIn && (
-          <>
-            <div className="col-md-7"></div>
+          <div className={styles.guestCtn}>
+            {/* <div className="col-md-7"></div> */}
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => navigate("/register")}
             >
               Register
             </button>
-            <div className="col-md-1"></div>
+            {/* <div className="col-md-1"></div> */}
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => navigate("/profile")}
             >
               Login
             </button>
-          </>
+          </div>
         )}
 
         {isLoggedIn && userContext.role === "admin" && (
-          <>
-            <div className="col-md-4"></div>
+          <div className={styles.adminCtn}>
+            {/* <div className="col-md-4"></div> */}
             <button
               className={`col-md-2 ${styles.navbarButtons}`}
               onClick={() => props.setShowNewLocationModal(true)}
@@ -66,7 +66,7 @@ const NavBar = (props) => {
               Add location
             </button>
 
-            <div className="col-md-1"></div>
+            {/* <div className="col-md-1"></div> */}
 
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
@@ -74,19 +74,19 @@ const NavBar = (props) => {
             >
               Logout
             </button>
-            <div className="col-md-1"></div>
+            {/* <div className="col-md-1"></div> */}
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => navigate("/admin")}
             >
               Admin
             </button>
-          </>
+          </div>
         )}
 
         {isLoggedIn && userContext.role !== "admin" && (
-          <>
-            <div className="col-md-7"></div>
+          <div className={styles.userCtn}>
+            {/* <div className="col-md-7"></div> */}
 
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
@@ -94,17 +94,17 @@ const NavBar = (props) => {
             >
               Logout
             </button>
-            <div className="col-md-1"></div>
+            {/* <div className="col-md-1"></div> */}
             <button
               className={`col-md-1 ${styles.navbarButtons}`}
               onClick={() => navigate("/profile")}
             >
               Profile
             </button>
-          </>
+          </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
