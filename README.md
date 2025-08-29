@@ -8,13 +8,12 @@
 
 ## 📑 Table of Contents
 
-- [About Kopi & Paws](/Users/austinchen/.Trash/kopi&paws.png)
-- [Features](/Users/austinchen/.Trash/kopi&paws.png)
-- [Tech Stack](/Users/austinchen/.Trash/kopi&paws.png)
-- [App Hierarchy]()
-- [File Structure]()
-- [API References]()
-- [Setup & Installation]()
+- [About Kopi & Paws](https://github.com/chickenONsteak/ga-project-3?tab=readme-ov-file#%E2%84%B9%EF%B8%8F-about-kopi--paws)
+- [Features](https://github.com/chickenONsteak/ga-project-3?tab=readme-ov-file#-features)
+- [Tech Stack](https://github.com/chickenONsteak/ga-project-3?tab=readme-ov-file#-tech-stack)
+- [App Hierarchy](https://github.com/chickenONsteak/ga-project-3?tab=readme-ov-file#-app-hierarchy--erd)
+- [File Structure](https://github.com/chickenONsteak/ga-project-3?tab=readme-ov-file#-file-structure)
+- [Setup & Installation](https://github.com/chickenONsteak/ga-project-3?tab=readme-ov-file#-setup--installation)
 
 ---
 
