@@ -176,9 +176,10 @@ const ProfilePage = () => {
                 <LocationCard
                   key={event._id}
                   name={event.title}
+                  locationId={event.location._id}
                   address={event.location.name}
-                  region={event.startAt}
-                  capacity={event.endAt}
+                  startAt={event.startAt}
+                  endAt={event.endAt}
                   imageURI={
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlhCYCChyhMwcgyVo1Ar4BCTra5Ebe4Tn2qQ&s"
                   }
