@@ -42,7 +42,20 @@ Hosting is simple: add details, cancel or complete events when plans change, and
 > Pro tip: Increase engagement then request for admin promotion
 >> Ask any admin for promotion
 
-## How to Join an Event
+## Updating status
+
+Keep everyone in the loop by updating the event’s status.  
+You can mark an event as **Scheduled**, **Cancelled**, or **Completed** so participants always know what’s happening.
+
+- **Scheduled** – the default state when an event is created  
+- **Cancelled** – let participants know the event won’t take place  
+- **Completed** – mark the event as finished  
+
+| Scheduled | Cancelled | Completed |
+|-----------|-----------|-----------|
+| ![Scheduled](/assets/scheduledStatus.png) | ![Cancelled](/assets/cancelledStatus.png) | ![Completed](/assets/completedStatus.png) |
+
+## How to join an Event
 
 1. **Select a Location**  
    Browse through the available locations and pick the event you’d like to join.  
