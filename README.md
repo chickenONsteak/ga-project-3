@@ -1,4 +1,4 @@
-# 🐾 Kopi & Paws
+# ☕️🐾 Kopi & Paws
 
 ---
 
@@ -6,7 +6,7 @@
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
 - [About Kopi & Paws](/Users/austinchen/.Trash/kopi&paws.png)
 - [Features](/Users/austinchen/.Trash/kopi&paws.png)
@@ -18,7 +18,7 @@
 
 ---
 
-## About Kopi & Paws
+## ℹ️ About Kopi & Paws
 
 Kopi & Paws is a React app for planning paw-some meetups at curated, pet-friendly locations. Browse venues with photos and capacity, spin up an event with a title, description, and date/time, then invite the crew to join. Guests can RSVP with or without their pets, and you’ll see humans and fur friends show up live in the attendee list.
 
@@ -147,11 +147,5 @@ You can mark an event as **Scheduled**, **Cancelled**, or **Completed** so parti
    1. `VITE_SERVER=<your Vite proxy server>`
 
 4. Install dependencies and run both servers
-   **In the backend/ directory**
-   1. `cd backend`
-   2. `npm install`
-   3. `npm run dev`
-      **In the frontend/ directory**
-   4. `cd frontend`
-   5. `npm install`
-   6. `npm run dev`
+   **Backend:** `cd backend && npm install && npm run dev`  
+   **Frontend:** `cd frontend && npm install && npm run dev`
