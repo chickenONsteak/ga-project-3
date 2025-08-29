@@ -146,6 +146,12 @@ You can mark an event as **Scheduled**, **Cancelled**, or **Completed** so parti
 
    1. `VITE_SERVER=<your Vite proxy server>`
 
-4. Install dependencies and run both servers
-   **Backend:** `cd backend && npm install && npm run dev`  
-   **Frontend:** `cd frontend && npm install && npm run dev`
+4. Install dependencies and run both servers:
+   - **Backend:**
+     1. `cd backend`
+     2. `npm install`
+     3. `npm run dev`
+   - **Frontend:**
+     1. `cd frontend`
+     2. `npm install`
+     3. `npm run dev`
