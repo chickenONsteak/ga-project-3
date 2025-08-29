@@ -8,9 +8,9 @@
 
 ## Table of Contents
 
-- [About Kopi & Paws]()
-- [Features]()
-- [Tech Stack]()
+- [About Kopi & Paws](/Users/austinchen/.Trash/kopi&paws.png)
+- [Features](/Users/austinchen/.Trash/kopi&paws.png)
+- [Tech Stack](/Users/austinchen/.Trash/kopi&paws.png)
 - [App Hierarchy]()
 - [File Structure]()
 - [API References]()
@@ -100,37 +100,37 @@ You can mark an event as **Scheduled**, **Cancelled**, or **Completed** so parti
 | Express      | Backend server and API routing                                 |
 | MongoDB      | Database to store users, profiles, pets, locations, and events |
 
-## 🪾 App Hierarchy
+## 🪾 App Hierarchy & ERD
 
+**App Hierarchy**
 ![app hierarchy](/assets/appHierarchy.png)
-
-## Entity Relationship Diagram
-
+**Entity Relationship Diagram**
 ![entity relationship diagram](/assets/ERD.png)
 
 ## 📂 File Structure
 
-- frontend
+**frontend**
 
-  - src/
-    - assets/ : for images used
-    - components/ : page-specific or global features
-    - context/ : for useContext
-    - hooks/ : custom hooks
-    - Modals/ : modals that appear in multiple pages
-    - Pages/ : page-level components
-    - Routes/ : rerouters
-    - styles/ : styling and layout
+- src/
+  - assets/ : for images used
+  - components/ : page-specific or global features
+  - context/ : for useContext
+  - hooks/ : custom hooks
+  - Modals/ : modals that appear in multiple pages
+  - Pages/ : page-level components
+  - Routes/ : rerouters
+  - styles/ : styling and layout
 
-- backend
-  - src/
-    - controllers/ : handle incoming requests
-    - db/ : connection with the database
-    - middleware/ : reusable logic for request/response processing
-    - models/ : define data schemas and interact with database
-    - routers/ : routing of endpoints to controllers
-    - scripts/ : for utilities
-    - validators/ : input validation for requests
+**backend**
+
+- src/
+  - controllers/ : handle incoming requests
+  - db/ : connection with the database
+  - middleware/ : reusable logic for request/response processing
+  - models/ : define data schemas and interact with database
+  - routers/ : routing of endpoints to controllers
+  - scripts/ : for utilities
+  - validators/ : input validation for requests
 
 ## 🚀 Setup & Installation
 
