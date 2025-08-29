@@ -18,6 +18,6 @@ router.use(auth);
 
 router.put("/", authAdmin, addLocation);
 router.delete("/:locationId", authAdmin, removeLocation);
-router.patch("/:locationId", authAdmin, updateLocation)
+router.patch("/:locationId", authAdmin, updateLocation);
 
 export default router;
