@@ -40,6 +40,7 @@
   margin-top: 8px;
   white-space: pre-wrap;
   height:10rem;
+  width: 100% 
 }
 
 .actions {
@@ -59,4 +60,8 @@
 
 .eventCardMiddle{
     width:20rem;
+}
+
+.eventCardLeft {
+  width:30rem;
 }

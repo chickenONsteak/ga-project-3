@@ -18,7 +18,7 @@ const LocationCard = (props) => {
       <div>{props.name}</div>
       <div>{props.address.split(",")[0]}</div>
       <div>{props?.region}</div>
-      {props.capacity ? <div>{`${props?.capacity}m²`}</div> : null}
+      {/* {props.capacity ? <div>{props?.capacity}</div> : null} */}
       <div>{props?.startAt}</div>
       <div>{props?.endAt}</div>
     </button>

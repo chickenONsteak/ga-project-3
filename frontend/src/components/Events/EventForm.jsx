@@ -58,6 +58,7 @@ const EventForm = ({ locationId, onSuccess, onCancel }) => { //props from Create
       value={title} 
       onChange={(e) => setTitle(e.target.value)} 
       placeholder="My pawkid's birthday pawty!" 
+      style={{ width: "100%" }}
     />
   </label>
 

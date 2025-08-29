@@ -159,8 +159,10 @@ const EventCard = ({ event, onJoined }) => {
               Delete
             </button>
           )}
+          <div className={styles.eventCardRight}>
           <JoinEventPanel eventId={_id} onSuccess={handleJoined} />
           {error ? <div className={styles.errorText}>{error}</div> : null}
+          </div>
         </div>
       </div>
     </div>

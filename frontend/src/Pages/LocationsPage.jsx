@@ -55,10 +55,10 @@ const LocationsPage = () => {
     load();
   }, [locationId]);
 
-const handleEventCreated = (newEvent) => {
-  setEvents((current) => [newEvent, ...current]);
-  setRefreshCount((n) => n + 1);
-};
+  const handleEventCreated = (newEvent) => {
+    setEvents((current) => [newEvent, ...current]);
+    setRefreshCount((n) => n + 1);
+  };
 
   if (loading) return <div>Loading page ...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -69,7 +69,7 @@ const handleEventCreated = (newEvent) => {
       <div
         className={styles.locationBanner}
         style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1), rgba(0,0,0,0.4)), url(${location.image})`,
+          backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6), rgba(255,255,255,0.1)), url(${location.image})`,
         }}
       >
         <h1 className={styles.locationName}>{location.name}</h1>
@@ -80,15 +80,16 @@ const handleEventCreated = (newEvent) => {
 
       <div className={styles.eventsList}>
         <div className={styles.eventsHeader}>
-        <h2 className={styles.eventsH2}>Events</h2>
-        {localStorage.getItem("access_token") && (
-       <CreateEventButton
-            locationId={location._id}
-            onCreated={handleEventCreated}
-          />
-          )}</div>
-          {/* button only available to logged in users */}
-        <EventList refreshFromParent={refreshCount}/>
+          <h2 className={styles.eventsH2}>Events</h2>
+          {localStorage.getItem("access_token") && (
+            <CreateEventButton
+              locationId={location._id}
+              onCreated={handleEventCreated}
+            />
+          )}
+        </div>
+        {/* button only available to logged in users */}
+        <EventList refreshFromParent={refreshCount} />
       </div>
     </div>
   );
