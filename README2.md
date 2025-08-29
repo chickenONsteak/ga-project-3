@@ -20,76 +20,69 @@
 
 ## About the site
 
-**In a nutshell:** Bus Stop Finder & Arrival Timings.
+## ✨ Features
 
-A single-page application built with **React**, **Vite**, and **TanStack** to search for addresses, locate nearby bus stops within a 500m radius, and manage a list of favourite bus stops using **Airtable** as storage.
+## 🛠 Tech Stack
 
-This project integrates the **OneMap** Singapore API for geolocation and **LTA** Singapore API for bus stop data.
-
-## Features ✨
-
-- **Bus Stop Search** — Search bus arrival timings by entering bus stop number
-- **Address Search** — Search for any address in Singapore and return list of bus stops nearby (within 500m radius) using the Haversine formula.
-- **Favourites Management**
-  - Save bus stops to Airtable.
-  - Retrieve favourites from Airtable.
-  - Delete favourites with one click.
-- **Toggle View** — Switch between "Nearby" and "Favourites" views.
-
-## Tech Stack 🛠
-
-| Technology   | Purpose                              |
-| ------------ | ------------------------------------ |
-| React (Vite) | Render UI and component structure    |
-| CSS          | styling                              |
-| TanStack     | Data fetching and mutation handling  |
-| Airtable     | Storage for favourite bus stops      |
-| OneMap       | Geocoding and bus stop location data |
+| Technology   | Purpose                                                        |
+| ------------ | -------------------------------------------------------------- |
+| React (Vite) | Render UI and component structure                              |
+| CSS          | Styling and layout                                             |
+| Express      | Backend server and API routing                                 |
+| MongoDB      | Database to store users, profiles, pets, locations, and events |
 
 ## App Hierarchy 🪾
 
-![app hierarchy](./assets/app-hierarchy.png)
+![app hierarchy]()
+
+## ERD
+
+![entity relationship diagram]()
 
 ## File Structure 📂
 
-- src/
-  - components/
-    - LandingPage.jsx — Consists of 3 components: Hero, Favourites, and Map
-    - SearchResults.jsx — Display all buses according to bus stop searched
-    - Hero.jsx — For search input fields
-    - Favourites.jsx — To display nearby bus stops and favourites
-    - Map.jsx — To display map
-    - BusStopName.jsx — To get the names of bus stops
-    - TimeTillArrival.jsx — To get the bus arrival timings
+- frontend
 
-## API References 📜
+  - src/
+    - assets/ : for images used
+    - components/ : page-specific or global features
+    - context/ : for useContext
+    - hooks/ : custom hooks
+    - Modals/ : modals that appear in multiple pages
+    - Pages/ : page-level components
+    - Routes/ : rerouters
+    - styles/ : styling and layout
 
-- **OneMap API:** https://www.onemap.gov.sg/apidocs/
-- **LTA API:** https://datamall.lta.gov.sg/content/datamall/en.html
-- **Airtable API:** https://airtable.com/developers/web/api/introduction
+- backend
+  - src/
+    - controllers/ : handle incoming requests
+    - db/ : connection with the database
+    - middleware/ : reusable logic for request/response processing
+    - models/ : define data schemas and interact with database
+    - routers/ : routing of endpoints to controllers
+    - scripts/ : for utilities
+    - validators/ : input validation for requests
 
-## Setup & Installation 🚀
+## 🚀 Setup & Installation
 
-1. Clone https://github.com/cheeaun/arrivelah.git repo and follow the README
-   1. This is like a proxy to [LTA's DataMall Bus Arrival API](https://datamall.lta.gov.sg/content/datamall/en.html).
-   2. Run this proxy in the background.
-2. Close this repo
-3. Install dependencies
-   `{npm install}`
-4. Change the .env.example file to .env with the following:
-   `VITE_SERVER=<your Vite proxy server>`
-   `VITE_BUS_STOP_NAMES=<json data from https://observablehq.com/@cheeaun/list-of-bus-stops-in-singapore>`
-   `VITE_AIRTABLE=<your Airtable key>`
-   `VITE_AIRTABLE_KEY=<your Airtable API endpoint>`
-5. Run the dev server
-   `npm run dev`
+1. Clone this repo
+2. On the backend/ directory, change the .env.example file to .env with the following:
 
-## Preview
+- `PORT=<your port number>`
+- `DATABASE=<your database>`
+- `ACCESS_SECRET=<your JWT secret for your access token>`
+- `REFRESH_SECRET=<your JWT secret for your refresh token>`
 
-#### Bus Arrival Timings
+3. On the frontend/ directory, change the .env.example file to .env with the following:
 
-![bus arrival timings](./assets/bus-arrival.png)
+- `VITE_SERVER=<your Vite proxy server>`
 
-#### Bus Stops Nearby
-
-![bus stops nearby](./assets/nearby-bus-stops.png)
+4. Install dependencies and run both servers
+   **In the backend/ directory**
+   1. `cd backend`
+   2. `npm install`
+   3. `npm run dev`
+      **In the frontend/ directory**
+   4. `cd frontend`
+   5. `npm install`
+   6. `npm run dev`

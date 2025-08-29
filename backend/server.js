@@ -9,7 +9,7 @@ import authRouter from "./src/routers/auth.js";
 import petsRouter from "./src/routers/pets.js";
 import profileRouter from "./src/routers/profile.js";
 import eventsRouter from "./src/routers/events.js";
-import locationsRouter from "./src/routers/locations.js"
+import locationsRouter from "./src/routers/locations.js";
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000, //15min
@@ -54,7 +54,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/pets", petsRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/events", eventsRouter);
-app.use("/api/locations", locationsRouter)
+app.use("/api/locations", locationsRouter);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
