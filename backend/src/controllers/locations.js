@@ -85,19 +85,19 @@ export const viewAllLocations = async (req, res) => {
   try {
     // const locations = await LocationsModel.find(undefined, { __v: 0 });
     const locations = await LocationsModel.find();
-    const outputArray = [];
-    for (const location of locations) {
-      outputArray.push({
-        _id: location._id,
-        name: location.name,
-        address: location.address,
-        region: location.region,
-        capacity: location.capacity,
-        image: location.image,
-      });
-    }
-    res.json(outputArray);
-    // res.json(locations);
+    // const outputArray = [];
+    // for (const location of locations) {
+    //   outputArray.push({
+    //     _id: location._id,
+    //     name: location.name,
+    //     address: location.address,
+    //     region: location.region,
+    //     capacity: location.capacity,
+    //     image: location.image,
+    //   });
+    // }
+    // res.json(outputArray);
+    res.json(locations);
   } catch (e) {
     console.error(e.message);
     return res

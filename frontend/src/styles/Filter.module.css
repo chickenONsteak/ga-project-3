@@ -1,6 +1,19 @@
-.filterButtons {
+/* .filterButtons {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+} */
+
+.filterContainer {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.filterBtn {
+  width: 8rem;
+  height: 2.5rem;
 }
