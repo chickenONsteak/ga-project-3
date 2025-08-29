@@ -450,13 +450,9 @@ export const getEventById = async (req, res) => {
 
     const event = await EventsModel.findById(eventId)
       .populate("hostUserId", "username")
-      // .populate("locationId", "name address")    //to include after completing location
       .populate("attendeesUsers", "username")
       .populate("attendeesPets", "name");
-    // .populate("attendeesUsers")
-    // .populate("attendeesPets");
-    // console.log(event.attendeesUsers);
-    // console.log(event.attendeesPets);
+  
 
     if (!event) {
       return res.status(404).json({ status: "error", msg: "Event not found." });

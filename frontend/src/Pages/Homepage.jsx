@@ -38,7 +38,7 @@ const Homepage = (props) => {
   }, [filter, props.showNewLocationModal]);
 
   return (
-    <div className="container">
+    <div className={styles.homeContainer}>
       <Filter setFilter={setFilter} />
 
       {isError && error}

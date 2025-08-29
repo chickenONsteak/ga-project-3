@@ -1,7 +1,8 @@
 .locationCards {
   display: flex;
   position: relative;
-  height: 20rem;
+  height: 18rem;
+  width: 24rem;
   border: 2px solid black;
   margin: 2rem 1.5rem;
   color: white;
@@ -9,6 +10,7 @@
   justify-content: end;
   align-items: start;
   font-weight: 600;
+  text-align: left;
 }
 
 /* FOR HOVER EFFECT — TO CREATE AN OVERLAY WITH EMPTY CONTENT ABOVE THE BUTTON WITH BACKGROUND IMAGE*/
