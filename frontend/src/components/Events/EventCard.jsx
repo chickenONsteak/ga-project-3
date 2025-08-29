@@ -53,6 +53,7 @@ const EventCard = ({ event, onJoined }) => {
     if (!canManage || !newStatus || newStatus === status) return; //not authorised or same status, return
     setSavingStatus(true);
     setError("");
+
     const res = await fetchData(
       `/api/events/${_id}`,
       "PATCH",
@@ -119,6 +120,7 @@ const EventCard = ({ event, onJoined }) => {
           <div className={styles.statusRow}>
             <span className={styles.statusBadge} style={statusStyle}>
               {status}
+              {console.log(status)}
             </span>
 
             {canManage && (

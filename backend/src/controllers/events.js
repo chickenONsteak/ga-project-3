@@ -338,7 +338,8 @@ export const updateEvent = async (req, res) => {
       return res.status(400).json({ status: "error", msg: "Invalid event id" });
     }
 
-    const current = await EventsModel.findOne({ _id: id, hostUserId: host._id }) //ensure host is same
+    // const current = await EventsModel.findOne({ _id: id, hostUserId: host._id }) //ensure host is same
+       const current = await EventsModel.findOne({ _id: id })
       .select("startAt endAt locationId"); //return these keys only (faster response)
     if (!current) {
       return res.status(404).json({ status: "error", msg: "Event not found" });
@@ -417,7 +418,8 @@ export const updateEvent = async (req, res) => {
     }
 
     const updated = await EventsModel.findOneAndUpdate(
-      { _id: id, hostUserId: host._id }, //filter host only
+      // { _id: id, hostUserId: host._id }, //filter host only
+      { _id: id },
       { $set: update },
       { new: true, runValidators: true } //return updated
     )
